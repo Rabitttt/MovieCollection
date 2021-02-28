@@ -1,0 +1,8 @@
+spring:
+  datasource:
+    jdbc-url: jdbc:postgresql://localhost:5432/moviecollection
+    username: postgres
+    password: postgresPassword
+  jpa:
+    hibernate:
+      ddl-auto: update
