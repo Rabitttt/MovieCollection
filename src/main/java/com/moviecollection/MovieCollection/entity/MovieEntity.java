@@ -13,7 +13,6 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MovieEntity {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;

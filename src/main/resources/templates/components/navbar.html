@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark d-flex align-items-center" style="height:6vh">
+    <div class="container">
+        <a class="navbar-brand mb-0 h1 justify-content-start" href="/">MovieCollection</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/user/register">Sign Up</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/user/login">Sign In</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Profile</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+</body>
+</html>

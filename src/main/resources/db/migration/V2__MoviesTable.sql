@@ -4,5 +4,4 @@ CREATE TABLE IF NOT EXISTS movies(
     description VARCHAR,
     releaseDate DATE,
     category VARCHAR
-    
 );

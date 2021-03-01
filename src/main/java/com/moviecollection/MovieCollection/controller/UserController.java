@@ -4,23 +4,30 @@ import com.moviecollection.MovieCollection.domain.User;
 import com.moviecollection.MovieCollection.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
-@Controller("/user/")
+@Controller
+@RequestMapping("/user")
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
 
-    @GetMapping(value = "{id}")
-    public User getUserByID(@PathVariable("userId") int userId) {
-        return userService.getUserbyId(userId);
+    @GetMapping(value = "/{id}")
+    public User getUserByID(@PathVariable("id") int id) {
+        userService.getUserbyId(id); //veri direk template a gidecek, controller sadece url gibi kullanılacak
+        return new User();//deneme.html
     }
-
     @PostMapping
     public User createNewUser(@RequestBody User user) {
         return userService.createNewUser(user);
+    }
+
+    @GetMapping("/register")
+    public String registerPage() {
+        return "register";
+    }
+    @GetMapping("/login")
+    public String loginPage(){
+        return "login";
     }
 }
