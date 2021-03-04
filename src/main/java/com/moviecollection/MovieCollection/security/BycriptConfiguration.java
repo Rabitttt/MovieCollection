@@ -1,4 +1,4 @@
-package com.moviecollection.MovieCollection.infra.configuration;
+package com.moviecollection.MovieCollection.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,6 +1,7 @@
 package com.moviecollection.MovieCollection.entity;
 
 import com.moviecollection.MovieCollection.enums.Gender;
+import com.moviecollection.MovieCollection.security.ApplicationUserRole;
 import lombok.*;
 
 import javax.persistence.*;
@@ -24,7 +25,7 @@ public class UserEntity implements Serializable {
     @GeneratedValue(generator = "seq_user_id",strategy = GenerationType.SEQUENCE)
     private int id;
 
-    @Column(name = "username",length = 50)
+    @Column(name = "username",length = 50,unique = true,nullable = false)
     private String userName;
     @Column(name = "email",length = 50)
     private String email;
@@ -34,6 +35,9 @@ public class UserEntity implements Serializable {
     private Gender gender;
     @Column(name = "joindate")
     private Date joinDate;
+
+    @Column(name = "role") //ADMIN or USER
+    private ApplicationUserRole role; //it is string (not ApplicationUserRole enum type) because i couldnt get the way of storing enum data as string.
 
     @OneToMany
     private List<MovieEntity> createdMovies;

@@ -17,17 +17,5 @@ public class UserController {
         userService.getUserbyId(id); //veri direk template a gidecek, controller sadece url gibi kullanılacak
         return new User();//deneme.html
     }
-    @PostMapping
-    public User createNewUser(@RequestBody User user) {
-        return userService.createNewUser(user);
-    }
 
-    @GetMapping("/register")
-    public String registerPage() {
-        return "register";
-    }
-    @GetMapping("/login")
-    public String loginPage(){
-        return "login";
-    }
 }

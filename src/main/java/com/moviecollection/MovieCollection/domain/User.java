@@ -1,11 +1,13 @@
 package com.moviecollection.MovieCollection.domain;
 
+
 import com.moviecollection.MovieCollection.entity.UserEntity;
 import com.moviecollection.MovieCollection.enums.Gender;
+import com.moviecollection.MovieCollection.security.ApplicationUserRole;
 import lombok.*;
 
-import javax.persistence.Id;
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -20,6 +22,7 @@ public class User {
     private String password;
     private Gender gender;
     private Date joinDate;
+    private ApplicationUserRole role;
 
     public static User fromEntity(UserEntity entity){
         return User.builder()
@@ -28,6 +31,7 @@ public class User {
                 .password(entity.getPassword())
                 .email(entity.getEmail())
                 .gender(entity.getGender())
+                .role(entity.getRole())
                 .build();
     }
     public UserEntity toEntity()
@@ -38,6 +42,7 @@ public class User {
                 .password(password)
                 .email(email)
                 .gender(gender)
+                .role(role)
                 .build();
     }
 }
