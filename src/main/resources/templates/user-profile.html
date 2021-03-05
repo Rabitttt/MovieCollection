@@ -1,13 +1,79 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="@{/css/bootstrap.min.css}">
-    <link rel="stylesheet" href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/user-page.css">
+    <link rel="stylesheet" href="/css/form.css">
     <title>Landing</title>
 </head>
 <body>
-<div th:replace="components/navbar"></div>
+    <div th:replace="components/navbar"></div>
+        <div class="row no-padding">
+
+            <div class="col-1"></div>
+            <div class="col-4 no-padding user-profile-forms">
+                <div class="h-25 rounded-pill" style="background-color:aliceblue;">
+                    <div class="row no-padding">
+                        <div class="col d-flex justify-content-center align-items-center">
+                            <img class="rounded-circle" th:src="@{/images/default-image/default-profile-picture.jpg}" alt="Default Picture" style="width:auto;height:20vh;">
+                            <!-- Resim koyulacak-->
+                        </div>
+                        <div class="col">
+                            <div class="container">
+                            <div th:each="user : ${user}">
+                                <p th:text="${user.username}"></p>
+                                <p th:text="${user.email}"></p>
+                                <p th:text="${user.gender} ?: 'unknown'"></p>
+
+                                <p th:text="${user.joinDate} ?: 'unknown'"></p>
+                            </div>
+                            <button type="button" class="btn btn-outline-primary">Edit profile</button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="h-75">
+                    <h2>Add New Movie to Collection</h2>
+                    <form class="form-padding rounded-lg bg-warning form-padding" th:action="@{/user/profile}"  th:object="${movie}" method="post">
+                        <div class="container">
+                            <div class="form-group">
+                                <label for="name">Movie Name</label>
+                                <input type="text" class="form-control" name="name" id="name" placeholder="Movie Name" th:field=*{name}>
+                            </div>
+                            <div class="form-group">
+                                <label for="description">Description</label>
+                                <input type="text" class="form-control" name="description" id="description" placeholder="Description" th:field=*{description}>
+                            </div>
+                            <div class="form-group">
+                                <label for="releaseDate">Movie Release Date</label>
+                                <input type="date" class="form-control" name="releaseDate" id="releaseDate" th:field=*{releaseDate}>
+                            </div>
+                            <div class="form-group">
+                                <label for="language">Movie Language</label>
+                                <input type="text" class="form-control" name="language" id="language" th:field=*{language}>
+                            </div>
+
+                        <button class="btn btn-lg btn-primary btn-block" type="submit">Add Movie</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+            <div class="col-1"></div>
+
+            <div class="col-5 no-padding ">
+                <p>Movie Will Come Here</p>
+            </div>
+
+
+            <div class="col-1"></div>
+        </div>
+
 
 </body>
 </html>

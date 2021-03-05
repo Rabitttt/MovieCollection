@@ -1,14 +1,19 @@
 package com.moviecollection.MovieCollection.service;
 
+import com.moviecollection.MovieCollection.auth.ApplicationUserDetails;
+import com.moviecollection.MovieCollection.auth.SessionManager;
+import com.moviecollection.MovieCollection.auth.fakeAuthenticatedUsersDB;
 import com.moviecollection.MovieCollection.domain.User;
 import com.moviecollection.MovieCollection.entity.UserEntity;
 import com.moviecollection.MovieCollection.repository.UserRepository;
 import com.moviecollection.MovieCollection.security.ApplicationUserRole;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Iterator;
 import java.util.Optional;
 
 @Service
@@ -53,5 +58,14 @@ public class UserService {
             throw e;
         }
 */
+    }
+
+    public User getUserByUsername(String username){
+        return User.fromEntity(userRepository.findByUserName(username).get());
+    }
+
+    public ApplicationUserDetails getUserByAuthUsers(){
+
+        return fakeAuthenticatedUsersDB.authenticatedUserlist.get(SessionManager.getSessionId());
     }
 }

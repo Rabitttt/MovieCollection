@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.nio.file.attribute.UserPrincipalNotFoundException;
 import java.util.Collections;
 import java.util.Optional;
 
@@ -28,15 +29,17 @@ public class ApplicationUserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<UserDetails> userDetails = selectApplicationUserByUsername(username)
-                .map(user -> new org.springframework.security.core.userdetails.User(
-                        user.getUserName(),
-                        user.getPassword(),
-                        Collections.emptyList()
-                ));
-        fakeAuthenticatedUsersDB.authenticatedUserlist.put(SessionManager.getSessionId(),userDetails.orElseThrow());
-        return userDetails
-                .orElseThrow();
+        if (selectApplicationUserByUsername(username).isPresent())
+        {
+            ApplicationUserDetails applicationUserDetails =
+                    ApplicationUserDetails.fromUser(selectApplicationUserByUsername(username).get());
+                    fakeAuthenticatedUsersDB.authenticatedUserlist.put(SessionManager.getSessionId(),applicationUserDetails);
+            System.out.println();
+                    return applicationUserDetails;
+        }
+        else {
+            return null;
+        }
 
     }
 }

@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 @AllArgsConstructor
 public class TemplateController {
@@ -15,10 +17,9 @@ public class TemplateController {
 
 
     @GetMapping("/")
-    public String index(){
+    public String index(Model model){
         return "landing-page";
     }
-
     @GetMapping("/register")
     public String registerPage(Model model) {
         com.moviecollection.MovieCollection.domain.User user = new com.moviecollection.MovieCollection.domain.User();

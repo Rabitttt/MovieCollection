@@ -6,8 +6,8 @@ import com.moviecollection.MovieCollection.enums.Gender;
 import com.moviecollection.MovieCollection.security.ApplicationUserRole;
 import lombok.*;
 
+import javax.persistence.Enumerated;
 import java.util.Date;
-import java.util.List;
 
 @Getter
 @Setter
@@ -23,6 +23,8 @@ public class User {
     private Gender gender;
     private Date joinDate;
     private ApplicationUserRole role;
+
+    //filmler gelecek
 
     public static User fromEntity(UserEntity entity){
         return User.builder()
@@ -45,4 +47,5 @@ public class User {
                 .role(role)
                 .build();
     }
+
 }

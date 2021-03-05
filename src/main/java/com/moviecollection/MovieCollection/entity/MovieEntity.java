@@ -5,11 +5,13 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "movies")
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class MovieEntity {
@@ -23,11 +25,16 @@ public class MovieEntity {
     @Column(name = "releasedate")
     private Date releaseDate;
     @Column(name = "category")
+    @Enumerated(EnumType.STRING)
     private MovieCategories category;
     @Column(name = "language",length = 50)
     private String language;
 
-    @ManyToOne(fetch = FetchType.LAZY) //select when get method used
-    @JoinColumn(name = "owner_id")
-    private UserEntity owner;
+    @ManyToMany(mappedBy = "createdMovies")
+    private List<UserEntity> owner;
+
+
+    @OneToMany(mappedBy = "movieEntity")
+    private List<CastEntity> castList;
+
 }
