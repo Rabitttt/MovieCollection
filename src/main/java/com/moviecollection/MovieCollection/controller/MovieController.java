@@ -15,7 +15,7 @@ import java.security.Principal;
 public class MovieController {
 
     @PostMapping("/user/profile")
-    public String addNewMovie(@ModelAttribute(value = "movie") Movie movie, Principal principal){
+    public String addNewMovie(@ModelAttribute(value = "movie") Movie movie){
         System.out.println(movie);
         return "redirect:/user/profile";
     }

@@ -1,10 +1,14 @@
 package com.moviecollection.MovieCollection.domain;
 
 import com.moviecollection.MovieCollection.entity.MovieEntity;
-import com.moviecollection.MovieCollection.entity.UserEntity;
 import com.moviecollection.MovieCollection.enums.MovieCategories;
+import com.moviecollection.MovieCollection.enums.MovieLanguage;
 import lombok.*;
 
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Getter
@@ -17,10 +21,9 @@ public class Movie {
     private int id;
     private String name;
     private String description;
-    private Date releaseDate;
+    private String releaseDate;
     private MovieCategories category;
-    private String language;
-
+    private MovieLanguage language;
     private User owner;
 
 
@@ -29,7 +32,7 @@ public class Movie {
                 .id(movieEntity.getId())
                 .name(movieEntity.getName())
                 .description(movieEntity.getDescription())
-                .releaseDate(movieEntity.getReleaseDate())
+                .releaseDate(movieEntity.getReleaseDate().toString())
                 .category(movieEntity.getCategory())
                 .language(movieEntity.getLanguage())
                 .build();
@@ -40,9 +43,20 @@ public class Movie {
                 .id(id)
                 .name(name)
                 .description(description)
-                .releaseDate(releaseDate)
+                .releaseDate(convertStringToTimestamp(releaseDate))
                 .category(category)
                 .language(language)
                 .build();
+    }
+    public Timestamp convertStringToTimestamp(String strDate) {
+        try {
+            DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+            Date date = formatter.parse(strDate);
+            return new Timestamp(date.getTime());
+
+        } catch (ParseException e) {
+            System.out.println("Exception :" + e);
+            return null;
+        }
     }
 }

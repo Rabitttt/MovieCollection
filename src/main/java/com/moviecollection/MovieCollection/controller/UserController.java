@@ -38,7 +38,6 @@ public class UserController {
 
         model.addAttribute("user",applicationUserDetails);
 
-        System.out.println(applicationUserDetails.getGender().name());
         return "user-profile";
         //return String.format("redirect:/user/%s",user.getId());
     }

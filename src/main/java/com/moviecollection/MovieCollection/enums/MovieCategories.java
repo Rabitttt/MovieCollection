@@ -1,6 +1,7 @@
 package com.moviecollection.MovieCollection.enums;
 
 public enum MovieCategories {
+    Other,
     Animation,
     Action,
     Comedy,
