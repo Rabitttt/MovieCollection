@@ -6,9 +6,7 @@ import com.moviecollection.MovieCollection.enums.Gender;
 import com.moviecollection.MovieCollection.security.ApplicationUserRole;
 import lombok.*;
 
-import javax.persistence.Enumerated;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -26,7 +24,6 @@ public class User {
     private ApplicationUserRole role;
     private List<Movie> movieList;
 
-    //filmler gelecek
 
     public static User fromEntity(UserEntity entity){
         return User.builder()

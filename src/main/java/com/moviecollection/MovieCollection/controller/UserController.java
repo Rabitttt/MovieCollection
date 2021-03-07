@@ -28,12 +28,6 @@ public class UserController {
     @GetMapping("/profile")
     public String getUserProfile(Model userMovies, Principal principal, Model model, @ModelAttribute(value = "movie") Movie movie)
     {
-        /*
-        User user = userService.getUserByUsername(principal.getName());
-        session.setAttribute("user",user);
-        return "user-profile";
-        */
-
         List<Movie> movieList = new ArrayList<>();
         movieList = userService.getUserMovies(Integer.parseInt(userService.getUserByAuthUsers().getId()));
         userMovies.addAttribute("userMovies",movieList);
@@ -42,6 +36,5 @@ public class UserController {
         model.addAttribute("user",applicationUserDetails);
 
         return "user-profile";
-        //return String.format("redirect:/user/%s",user.getId());
     }
 }

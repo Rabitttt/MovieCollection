@@ -5,7 +5,6 @@ import com.moviecollection.MovieCollection.enums.MovieLanguage;
 import lombok.*;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 

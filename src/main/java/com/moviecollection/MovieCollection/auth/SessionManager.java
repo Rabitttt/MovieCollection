@@ -8,9 +8,6 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpSession;
 
 public class SessionManager {
-    //login işlemi
-    //kontrol işlemi
-    //çıkış işlemi
 
     public static String getSessionId() {
         ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();

@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,12 +35,6 @@ public class TemplateController {
         return "register";
     }
 
-    /*
-    @PostMapping("/register")
-    public String createNewUser(@ModelAttribute(value = "user") com.moviecollection.MovieCollection.domain.User user) {
-        userService.createNewUser(user);
-        return "/login";
-    }*/
 
     @PostMapping("/register")
     public String createNewUser(@ModelAttribute(value = "user") com.moviecollection.MovieCollection.domain.User user) {

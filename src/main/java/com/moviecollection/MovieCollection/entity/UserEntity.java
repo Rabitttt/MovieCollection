@@ -38,15 +38,8 @@ public class UserEntity {
 //    private Date joinDate;
 
     @Column(name = "role") //ADMIN or USER
-    private ApplicationUserRole role; //it is string (not ApplicationUserRole enum type) because i couldnt get the way of storing enum data as string.
+    private ApplicationUserRole role;
 
-
-//    @ManyToMany(cascade = CascadeType.ALL)
-//    @JoinTable(
-//            name = "users_created_movies",
-//            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
-//            inverseJoinColumns = @JoinColumn(name = "movie_id", referencedColumnName = "id")
-//    )
     @OneToMany(mappedBy = "owner")
     private  List<MovieEntity> createdMovies;
 
