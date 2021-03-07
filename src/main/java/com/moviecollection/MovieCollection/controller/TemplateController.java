@@ -1,5 +1,7 @@
 package com.moviecollection.MovieCollection.controller;
 
+import com.moviecollection.MovieCollection.domain.Movie;
+import com.moviecollection.MovieCollection.service.MovieService;
 import com.moviecollection.MovieCollection.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -9,15 +11,22 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @AllArgsConstructor
 public class TemplateController {
     private final UserService userService;
-
+    private final MovieService movieService;
 
     @GetMapping("/")
-    public String index(Model model){
+    public String home(Model movieList){
+        List<Movie> allMovies = new ArrayList<>();
+        allMovies = movieService.getAllMovies();
+//        allMovies = movieService.getUserMovies(Integer.parseInt(userService.getUserByAuthUsers().getId()));
+//        userMovies.addAttribute("userMovies",movieList);
+        movieList.addAttribute("movieList",allMovies);
         return "landing-page";
     }
     @GetMapping("/register")

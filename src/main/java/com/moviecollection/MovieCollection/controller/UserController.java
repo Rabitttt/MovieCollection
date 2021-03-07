@@ -9,9 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-
-import javax.servlet.http.HttpSession;
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/user")
@@ -26,7 +26,7 @@ public class UserController {
     }
 
     @GetMapping("/profile")
-    public String getUserProfile(Principal principal, Model model,@ModelAttribute(value = "movie") Movie movie)
+    public String getUserProfile(Model userMovies, Principal principal, Model model, @ModelAttribute(value = "movie") Movie movie)
     {
         /*
         User user = userService.getUserByUsername(principal.getName());
@@ -34,6 +34,9 @@ public class UserController {
         return "user-profile";
         */
 
+        List<Movie> movieList = new ArrayList<>();
+        movieList = userService.getUserMovies(Integer.parseInt(userService.getUserByAuthUsers().getId()));
+        userMovies.addAttribute("userMovies",movieList);
         ApplicationUserDetails applicationUserDetails = userService.getUserByAuthUsers();
 
         model.addAttribute("user",applicationUserDetails);

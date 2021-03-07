@@ -13,8 +13,8 @@
         <div class="row no-padding">
 
             <div class="col-1"></div>
-            <div class="col-4 no-padding user-profile-forms">
-                <div class="h-25 rounded-pill" style="background-color:aliceblue;">
+            <div class="col-4 no-padding user-profile-forms d-flex flex-column justify-content-around">
+                <div class="rounded-pill py-3 bg-info">
                     <div class="row no-padding">
                         <div class="col d-flex justify-content-center align-items-center">
                             <img class="rounded-circle" th:src="@{/images/default-image/default-profile-picture.jpg}" alt="Default Picture" style="width:auto;height:20vh;">
@@ -23,21 +23,18 @@
                         <div class="col">
                             <div class="container">
                             <div th:each="user : ${user}">
-                                <p th:text="${user.username}"></p>
+                                <p class="inline">Username :</p><p th:text="${user.username}"></p>
                                 <p th:text="${user.email}"></p>
                                 <p th:text="${user.gender} ?: 'unknown'"></p>
-
-                                <p th:text="${user.joinDate} ?: 'unknown'"></p>
                             </div>
-                            <button type="button" class="btn btn-outline-primary">Edit profile</button>
                             </div>
                         </div>
 
                     </div>
 
                 </div>
-                <div class="h-75">
-                    <form class="form-padding rounded-lg bg-warning form-padding" th:action="@{/user/profile}"  th:object="${movie}" method="post">
+                <div class="">
+                    <form class="border border-1 form-padding rounded-lg form-padding" th:action="@{/user/movies/create}"  th:object="${movie}" style="background-color:whitesmoke;" method="post">
                         <h2>Add New Movie to Collection</h2>
                         <div class="container">
                             <div class="form-group">
@@ -82,7 +79,52 @@
             <div class="col-1"></div>
 
             <div class="col-5 no-padding ">
-                <p>Movie Will Come Here</p>
+                <div class="d-flex justify-content-center pt-5">
+                    <h1>Your Movie Collection</h1>
+                </div>
+                <hr>
+
+                <span th:each="movie : ${userMovies}">
+                    <div class="row no-padding my-4">
+                        <div class="col d-flex justify-content-center align-items-center">
+                            <img th:src="@{/images/default-image/default-movie-image.jpg}" alt="Default Picture" style="width:auto;height:20vh;">
+                        </div>
+                        <div class="col">
+                            <div class="container px-2">
+                            <div class="d-flex flex-column justify-content-around">
+                                <div class="d-flex flex-row justify-content-left">
+                                    <p class="pr-3">Movie Name :</p>
+                                    <p th:text="${movie.name}"></p>
+                                </div>
+                                <div class="d-flex flex-row justify-content-left">
+                                    <p class="pr-3">Description :</p>
+                                    <p th:text="${movie.description}"></p>
+                                </div>
+                                <div class="d-flex flex-row justify-content-left">
+                                    <p class="pr-3">Release Date :</p>
+                                    <p th:text="${movie.releaseDate} ?: 'unknown'"></p>
+                                </div>
+                                </div>
+                                <div class="d-flex flex-row justify-content-left">
+                                    <p class="pr-3">Release Date :</p>
+                                    <p th:text="${movie.category} ?: 'unknown'"></p>
+                                </div>
+                                <div class="d-flex flex-row justify-content-left">
+                                    <p class="pr-3">Category :</p>
+                                    <p th:text="${movie.category} ?: 'unknown'"></p>
+                                </div>
+                                <div class="d-flex flex-row justify-content-left">
+                                    <p class="pr-3">Language :</p>
+                                    <p th:text="${movie.language} ?: 'unknown'"></p>
+                                </div>
+                            </div>
+                                <button type="button" class="btn btn-outline-success">Edit Movie</button>
+                            </div>
+                        </div>
+
+                    <hr>
+                </span>
+
             </div>
 
 

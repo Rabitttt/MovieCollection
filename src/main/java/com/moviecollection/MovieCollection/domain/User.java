@@ -7,7 +7,9 @@ import com.moviecollection.MovieCollection.security.ApplicationUserRole;
 import lombok.*;
 
 import javax.persistence.Enumerated;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -21,8 +23,8 @@ public class User {
     private String email;
     private String password;
     private Gender gender;
-    private Date joinDate;
     private ApplicationUserRole role;
+    private List<Movie> movieList;
 
     //filmler gelecek
 
@@ -48,4 +50,11 @@ public class User {
                 .build();
     }
 
+    public static List<Movie> userMoviesListFromEntity(UserEntity userEntity){
+        List<Movie> movieList = new ArrayList<>();
+        userEntity.getCreatedMovies().forEach(movie -> {
+            movieList.add(Movie.fromEntity(movie));
+        });
+        return movieList;
+    }
 }

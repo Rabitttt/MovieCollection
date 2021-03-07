@@ -17,7 +17,7 @@ public class SessionManager {
         return  attr.getSessionId();
     }
 
-    public UserDetails getPrincipal(){
+    public static UserDetails getPrincipal(){
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         if (principal instanceof UserDetails) {

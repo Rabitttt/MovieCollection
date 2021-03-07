@@ -34,19 +34,21 @@ public class UserEntity {
     @Column(name = "gender")
     @Enumerated(EnumType.STRING)
     private Gender gender;
-    @Column(name = "joindate")
-    private Date joinDate;
+//    @Column(name = "joindate")
+//    private Date joinDate;
 
     @Column(name = "role") //ADMIN or USER
     private ApplicationUserRole role; //it is string (not ApplicationUserRole enum type) because i couldnt get the way of storing enum data as string.
 
 
-    @ManyToMany
-    @JoinTable(
-            name = "users_created_movies",
-            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "movie_id", referencedColumnName = "id")
-    )
-    private List<MovieEntity> createdMovies;
+//    @ManyToMany(cascade = CascadeType.ALL)
+//    @JoinTable(
+//            name = "users_created_movies",
+//            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+//            inverseJoinColumns = @JoinColumn(name = "movie_id", referencedColumnName = "id")
+//    )
+    @OneToMany(mappedBy = "owner")
+    private  List<MovieEntity> createdMovies;
+
 
 }

@@ -1,6 +1,7 @@
 package com.moviecollection.MovieCollection.domain;
 
 import com.moviecollection.MovieCollection.entity.MovieEntity;
+import com.moviecollection.MovieCollection.entity.UserEntity;
 import com.moviecollection.MovieCollection.enums.MovieCategories;
 import com.moviecollection.MovieCollection.enums.MovieLanguage;
 import lombok.*;
@@ -10,6 +11,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 
 @Getter
 @Setter
@@ -21,10 +23,10 @@ public class Movie {
     private int id;
     private String name;
     private String description;
-    private String releaseDate;
+    private Date releaseDate;
     private MovieCategories category;
     private MovieLanguage language;
-    private User owner;
+    private UserEntity owner;
 
 
     public static Movie fromEntity(MovieEntity movieEntity){
@@ -32,9 +34,10 @@ public class Movie {
                 .id(movieEntity.getId())
                 .name(movieEntity.getName())
                 .description(movieEntity.getDescription())
-                .releaseDate(movieEntity.getReleaseDate().toString())
+                .releaseDate(movieEntity.getReleaseDate())
                 .category(movieEntity.getCategory())
                 .language(movieEntity.getLanguage())
+                .owner(movieEntity.getOwner())
                 .build();
     }
     public MovieEntity toEntity()
@@ -43,20 +46,12 @@ public class Movie {
                 .id(id)
                 .name(name)
                 .description(description)
-                .releaseDate(convertStringToTimestamp(releaseDate))
+                .releaseDate(releaseDate)
                 .category(category)
                 .language(language)
+                .owner(owner)
                 .build();
     }
-    public Timestamp convertStringToTimestamp(String strDate) {
-        try {
-            DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
-            Date date = formatter.parse(strDate);
-            return new Timestamp(date.getTime());
 
-        } catch (ParseException e) {
-            System.out.println("Exception :" + e);
-            return null;
-        }
-    }
+
 }

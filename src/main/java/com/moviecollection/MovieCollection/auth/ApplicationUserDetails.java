@@ -22,7 +22,6 @@ public class ApplicationUserDetails implements UserDetails {
     private final String password;
     private final Gender gender;
     private final String email;
-    private final Date joinDate;
     private final Set<? extends GrantedAuthority> grantedAuthorities;
     private final boolean isAccountNonExpired;
     private final boolean isAccountNonLocked;
@@ -74,9 +73,7 @@ public class ApplicationUserDetails implements UserDetails {
                 .password(user.getPassword())
                 .gender(user.getGender())
                 .email(user.getEmail())
-                .joinDate(user.getJoinDate())
                 .grantedAuthorities(authorities)
                 .build();
     }
-
 }

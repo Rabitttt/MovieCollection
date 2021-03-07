@@ -25,7 +25,7 @@ public class MovieEntity {
     @Column(name = "description",length = 500)
     private String description;
     @Column(name = "releasedate")
-    private Timestamp releaseDate;
+    private Date releaseDate;
     @Column(name = "category")
     @Enumerated(EnumType.STRING)
     private MovieCategories category;
@@ -33,9 +33,9 @@ public class MovieEntity {
     @Enumerated(EnumType.STRING)
     private MovieLanguage language;
 
-    @ManyToMany(mappedBy = "createdMovies")
-    private List<UserEntity> owner;
-
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "owner_id",referencedColumnName = "id")
+    private UserEntity owner;
 
     @OneToMany(mappedBy = "movieEntity")
     private List<CastEntity> castList;
