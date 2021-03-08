@@ -1,13 +1,74 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="@{/css/bootstrap.min.css}">
-    <link rel="stylesheet" href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="/css/style.css">
     <title>Landing</title>
 </head>
-<body style="height:100vh;">
+<body>
 <div th:replace="components/navbar"></div>
 
+
+<div class="row no-padding">
+    <div class="col-3 movie-detail-page no-padding"></div>
+    <div class="col-4 movie-detail-page no-padding">
+        <div class="h-50 no-padding d-flex flex-column justify-content-center align-items-center">
+            <img th:src="@{/images/default-image/default-movie-image.jpg}" alt="Default Picture" style="width:%100;height:30vh;">
+        </div>
+        <div class="h-50 no-padding">
+            <div class="container px-5">
+                <div class="d-flex flex-column justify-content-around">
+                    <div class="d-flex flex-row justify-content-left">
+                        <p class="pr-3">Movie Name :</p>
+                        <p th:text="${movie.name}"></p>
+                    </div>
+                    <div class="d-flex flex-row justify-content-left">
+                        <p class="pr-3">Description :</p>
+                        <p th:text="${movie.description}"></p>
+                    </div>
+                    <div class="d-flex flex-row justify-content-left">
+                        <p class="pr-3">Release Date :</p>
+                        <p th:text="${movie.releaseDate} ?: 'unknown'"></p>
+                    </div>
+                    <div class="d-flex flex-row justify-content-left">
+                        <p class="pr-3">Category :</p>
+                        <p th:text="${movie.category} ?: 'unknown'"></p>
+                    </div>
+                    <div class="d-flex flex-row justify-content-left">
+                        <p class="pr-3">Language :</p>
+                        <p th:text="${movie.language} ?: 'unknown'"></p>
+                    </div>
+                    <div th:if="${isCollected} == true">
+                    <form class="d-flex justify-content-end"
+                          th:action="@{/movie/details} + '/'+ ${movie.id}"
+                          method="post">
+                        <button type="submit" class="btn btn-outline-success">Add to Collection</button>
+                    </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-2 bg-warning movie-detail-page no-padding">
+        <div class="h-25 container d-flex justify-content-center" >
+            <form class=" form-padding rounded-lg form-padding" th:action="@{/user/movies/addCast}" th:object="${}" method="post">
+            <div class="form-group">
+                <label for="name">Movie Name</label>
+                <input type="text" class="form-control" name="name" id="name" placeholder="Movie Name" th:field=*{ca}>
+            </div>
+            </form>
+        </div>
+        <div>
+            <h2>Cast</h2>
+
+        </div>
+        <hr>
+    </div>
+    <div class="col-3 movie-detail-page no-padding"></div>
+
+</div>
+
+</div>
 </body>
 </html>

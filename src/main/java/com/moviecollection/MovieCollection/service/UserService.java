@@ -44,12 +44,14 @@ public class UserService {
         }
     }
     @Transactional
-    public List<Movie> getUserMovies(int userId) {
-       UserEntity userEntity = userRepository.getOne(userId);
-       return User.userMoviesListFromEntity(userEntity);
+    public List<Movie> getUserMovies(int id) {
+       UserEntity userEntity = userRepository.getOne(id);
+       List<Movie> movieList = User.userMoviesListFromEntity(userEntity);
+       return movieList;
     }
 
     public User getUserByUsername(String username){
+        System.out.println(User.fromEntity(userRepository.findByUserName(username).get()).getMovieList());
         return User.fromEntity(userRepository.findByUserName(username).get());
     }
 

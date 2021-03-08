@@ -38,10 +38,19 @@ public class UserEntity {
 //    private Date joinDate;
 
     @Column(name = "role") //ADMIN or USER
+    @Enumerated(EnumType.STRING)
     private ApplicationUserRole role;
 
-    @OneToMany(mappedBy = "owner")
-    private  List<MovieEntity> createdMovies;
+    @OneToMany(mappedBy = "creator")
+    private  List<MovieEntity> createdMovies; //only creator can update movie
+
+@ManyToMany(cascade = CascadeType.ALL)
+@JoinTable(
+        name = "users_owned_movies",
+        joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+        inverseJoinColumns = @JoinColumn(name = "movie_id", referencedColumnName = "id")
+)
+private List<MovieEntity> ownedMovies; //owned movies not self created but we want to show these movies in our list
 
 
 }

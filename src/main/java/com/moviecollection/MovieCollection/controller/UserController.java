@@ -1,6 +1,7 @@
 package com.moviecollection.MovieCollection.controller;
 
 import com.moviecollection.MovieCollection.auth.ApplicationUserDetails;
+import com.moviecollection.MovieCollection.auth.SessionManager;
 import com.moviecollection.MovieCollection.domain.Movie;
 import com.moviecollection.MovieCollection.domain.User;
 import com.moviecollection.MovieCollection.service.UserService;
@@ -28,13 +29,19 @@ public class UserController {
     @GetMapping("/profile")
     public String getUserProfile(Model userMovies, Principal principal, Model model, @ModelAttribute(value = "movie") Movie movie)
     {
-        List<Movie> movieList = new ArrayList<>();
-        movieList = userService.getUserMovies(Integer.parseInt(userService.getUserByAuthUsers().getId()));
+        User user = userService.getUserByUsername(SessionManager.getPrincipal().getUsername());
+
+        List<Movie> movieList = userService.getUserMovies(user.getId());
+
         userMovies.addAttribute("userMovies",movieList);
-        ApplicationUserDetails applicationUserDetails = userService.getUserByAuthUsers();
+        model.addAttribute("user",user);
 
-        model.addAttribute("user",applicationUserDetails);
-
+//        ApplicationUserDetails applicationUserDetails = userService.getUserByAuthUsers();
+//        List<Movie> movieList = userService.getUserMovies(principal.getName());
+//
+//        userMovies.addAttribute("userMovies",movieList);
+//        model.addAttribute("user",applicationUserDetails);
+//
         return "user-profile";
     }
 }

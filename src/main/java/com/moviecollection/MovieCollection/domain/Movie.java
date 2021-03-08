@@ -6,11 +6,9 @@ import com.moviecollection.MovieCollection.enums.MovieCategories;
 import com.moviecollection.MovieCollection.enums.MovieLanguage;
 import lombok.*;
 
-import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 @Getter
@@ -26,7 +24,8 @@ public class Movie {
     private Date releaseDate;
     private MovieCategories category;
     private MovieLanguage language;
-    private UserEntity owner;
+    private List<User> ownerList;
+    private User creator;
 
 
     public static Movie fromEntity(MovieEntity movieEntity){
@@ -37,7 +36,7 @@ public class Movie {
                 .releaseDate(movieEntity.getReleaseDate())
                 .category(movieEntity.getCategory())
                 .language(movieEntity.getLanguage())
-                .owner(movieEntity.getOwner())
+                .creator(User.fromEntity(movieEntity.getCreator()))
                 .build();
     }
     public MovieEntity toEntity()
@@ -49,9 +48,15 @@ public class Movie {
                 .releaseDate(releaseDate)
                 .category(category)
                 .language(language)
-                .owner(owner)
+                .creator(creator.toEntity())
                 .build();
     }
 
-
+    public static List<User> movieOwnerListFromEntity(MovieEntity movieEntity){
+        List<User> userList = new ArrayList<>();
+        movieEntity.getOwnerList().forEach(userEntity -> {
+            userList.add(User.fromEntity(userEntity));
+        });
+        return userList;
+    }
 }

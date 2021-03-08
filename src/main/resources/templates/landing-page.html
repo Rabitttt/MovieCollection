@@ -7,86 +7,107 @@
     <title>Landing</title>
 </head>
 <body>
-    <div th:replace="components/navbar"></div>
-    <div class="row no-padding">
-        <div class="col-3 bg-dark" style="height:auto;"></div>
-        <div class="col-6" style="height:auto;">
-            <div class="d-flex justify-content-center pt-5">
-                <h1>Movies</h1>
+<div th:replace="components/navbar"></div>
+<div class="row no-padding">
+    <div class="col-3 bg-dark" style="height:auto;"></div>
+    <div class="col-6" style="height:auto;">
+        <div class="d-flex justify-content-center pt-5">
+            <h1>Movies</h1>
+        </div>
+        <hr>
+        <div class="row no-padding">
+            <div class="col-3">
+                <form class="form-padding rounded-lg " method="get">
+                    <div class="container">
+                        <div class="form-group">
+                            <label for="name">Search by movie name :</label>
+                            <input type="text" class="form-control" name="name" id="name" placeholder="Movie Name">
+                        </div>
+                        <button class="btn btn-sm btn-info btn-block" type="submit">Search</button>
+                    </div>
+                </form>
             </div>
-            <hr>
-            <div class="row no-padding">
-                <div class="col-3">
-                    <form class="form-padding rounded-lg " method="get">
-                        <div class="container">
-                            <div class="form-group">
-                                <label for="name">Search by movie name :</label>
-                                <input type="text" class="form-control" name="name" id="name" placeholder="Movie Name">
-                            </div>
-                            <button class="btn btn-sm btn-info btn-block" type="submit">Search</button>
+            <div class="col-3">
+                <form class="form-padding rounded-lg" method="get">
+                    <div class="container">
+                        <div class="form-group">
+                            <label for="cast">Search by movie cast :</label>
+                            <input type="text" class="form-control" name="cast" id="cast" placeholder="Actor/Actress">
                         </div>
-                    </form>
-                </div>
-                <div class="col-3">
-                    <form class="form-padding rounded-lg" method="get">
-                        <div class="container">
-                            <div class="form-group">
-                                <label for="cast">Search by movie cast :</label>
-                                <input type="text" class="form-control" name="cast" id="cast" placeholder="Actor/Actress">
-                            </div>
-                            <button class="btn btn-sm btn-info btn-block" type="submit">Search</button>
-                        </div>
-                    </form>
-                </div>
-                <div class="col-3">
-                    <form class="form-padding rounded-lg" method="get">
-                        <div class="container">
-                            <div class="form-group">
-                                <label for="Category">Search by Category :</label>
-                                <select id="Category">
-                                    <option th:each="category : ${T(com.moviecollection.MovieCollection.enums.MovieCategories).values()}"
-                                            th:value="${category}"
-                                            th:text="${category}">
-                                    </option>
-                                </select>
-                            </div>
-                            <button class="btn btn-sm btn-info btn-block" type="submit">Search</button>
-                        </div>
-                    </form>
-
-                </div>
-                <div class="col-3">
-                    <form class="form-padding rounded-lg" method="get">
-                        <div class="container">
-                            <div class="form-group">
-                                <label for="Category">Sort by release date : </label>
-                                <select class="select_styled white_select" name="sort_list" id="sort_list">
-                                    <option value="1" data-sort="ladd">Latest First
-                                    <option value="2" selected="" data-sort="price">Oldest First
-                                </select>
-                            </div>
-                            <button class="btn btn-sm btn-info btn-block" type="submit">Search</button>
-                        </div>
-                    </form>
-                </div>
+                        <button class="btn btn-sm btn-info btn-block" type="submit">Search</button>
+                    </div>
+                </form>
             </div>
+            <div class="col-3">
+                <form class="form-padding rounded-lg" method="get">
+                    <div class="container">
+                        <div class="form-group">
+                            <label for="Category">Search by Category :</label>
+                            <select id="Category">
+                                <option th:each="category : ${T(com.moviecollection.MovieCollection.enums.MovieCategories).values()}"
+                                        th:value="${category}"
+                                        th:text="${category}">
+                                </option>
+                            </select>
+                        </div>
+                        <button class="btn btn-sm btn-info btn-block" type="submit">Search</button>
+                    </div>
+                </form>
 
-            <span th:each="movie : ${movieList}">
+            </div>
+            <div class="col-3">
+                <form class="form-padding rounded-lg" method="get">
+                    <div class="container">
+                        <div class="form-group">
+                            <label for="Category">Sort by release date : </label>
+                            <select class="select_styled white_select" name="sort_list" id="sort_list">
+                                <option value="1" data-sort="ladd">Latest First
+                                <option value="2" selected="" data-sort="price">Oldest First
+                            </select>
+                        </div>
+                        <button class="btn btn-sm btn-info btn-block" type="submit">Search</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <hr>
+        <span th:each="movie : ${movieList}">
                     <div class="row no-padding my-4">
                         <div class="col d-flex justify-content-center align-items-center">
                             <img th:src="@{/images/default-image/default-movie-image.jpg}" alt="Default Picture" style="width:auto;height:20vh;">
                         </div>
                         <div class="col">
                             <div class="container">
-                            <div class="d-flex flex-column justify-content-around">
-                                <p th:text="${movie.name}"></p>
-                                <p th:text="${movie.description}"></p>
-                                <p th:text="${movie.releaseDate} ?: 'unknown'"></p>
-                                <p th:text="${movie.category} ?: 'unknown'"></p>
-                                <p th:text="${movie.language} ?: 'unknown'"></p>
+                                <div class="container px-2">
 
+                                <div class="d-flex flex-column justify-content-around">
+                                    <div class="d-flex flex-row justify-content-left">
+                                        <p class="pr-3">Movie Name :</p>
+                                        <p th:text="${movie.name}"></p>
+                                    </div>
+                                    <div class="d-flex flex-row justify-content-left">
+                                        <p class="pr-3">Description :</p>
+                                        <p th:text="${movie.description}"></p>
+                                    </div>
+                                    <div class="d-flex flex-row justify-content-left">
+                                        <p class="pr-3">Release Date :</p>
+                                        <p th:text="${movie.releaseDate} ?: 'unknown'"></p>
+                                    </div>
+                                    <div class="d-flex flex-row justify-content-left">
+                                        <p class="pr-3">Category :</p>
+                                        <p th:text="${movie.category} ?: 'unknown'"></p>
+                                    </div>
+                                    <div class="d-flex flex-row justify-content-left">
+                                        <p class="pr-3">Language :</p>
+                                        <p th:text="${movie.language} ?: 'unknown'"></p>
+                                    </div>
+                                    <form class="d-flex justify-content-end"
+                                          th:action="@{/movie/details} + '/'+ ${movie.id}"
+                                          method="get">
+                                        <button type="submit" class="btn btn-outline-success">Movie Detail</button>
+                                    </form>
                             </div>
-                                <button type="button" class="btn btn-outline-success">Movie Detail</button>
+                            </div>
                             </div>
                         </div>
 
@@ -94,9 +115,9 @@
                     <hr>
                 </span>
 
-        </div>
-        <div class="col-3 bg-dark" style="height:auto;"></div>
     </div>
+    <div class="col-3 bg-dark" style="height:auto;"></div>
+</div>
 
 </body>
 </html>

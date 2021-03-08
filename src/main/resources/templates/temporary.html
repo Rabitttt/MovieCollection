@@ -1,0 +1,66 @@
+
+<div >
+    <div class="h-50 d-flex justify-content-center align-items-center">
+        <img th:src="@{/images/default-image/default-movie-image.jpg}" alt="Default Picture" style="width:auto;height:30vh;">
+    </div>
+    <div class="h-50">
+        <div class="container">
+            <div class="container px-2">
+
+                <div class="d-flex flex-column justify-content-around">
+                    <div class="d-flex flex-row justify-content-left">
+                        <p class="pr-3">Movie Name :</p>
+                        <p th:text="${movie.name}"></p>
+                    </div>
+                    <div class="d-flex flex-row justify-content-left">
+                        <p class="pr-3">Description :</p>
+                        <p th:text="${movie.description}"></p>
+                    </div>
+                    <div class="d-flex flex-row justify-content-left">
+                        <p class="pr-3">Release Date :</p>
+                        <p th:text="${movie.releaseDate} ?: 'unknown'"></p>
+                    </div>
+                    <div class="d-flex flex-row justify-content-left">
+                        <p class="pr-3">Category :</p>
+                        <p th:text="${movie.category} ?: 'unknown'"></p>
+                    </div>
+                    <div class="d-flex flex-row justify-content-left">
+                        <p class="pr-3">Language :</p>
+                        <p th:text="${movie.language} ?: 'unknown'"></p>
+                    </div>
+                    <form class="d-flex justify-content-end"
+                          th:action="@{/movie/details} + '/'+ ${movie.id}"
+                          method="get">
+                        <button type="submit" class="btn btn-outline-success">Movie Detail</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<hr>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="h-50 no-padding d-flex justify-content-center align-items-center">
+    <img th:src="@{/images/default-image/default-movie-image.jpg}" alt="Default Picture" style="width:auto;height:40vh;">
+</div>
+<div class="h-50 no-padding">
+    <div class="container">
+        <div class="d-flex flex-row justify-content-left no-padding">
+            <p>Movie Name :</p>
+            <p th:text="${movie.name}"></p>
+        </div>
+    </div>
+</div>

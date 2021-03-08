@@ -23,6 +23,7 @@ public class User {
     private Gender gender;
     private ApplicationUserRole role;
     private List<Movie> movieList;
+    private List<Movie> createdMovies;
 
 
     public static User fromEntity(UserEntity entity){
