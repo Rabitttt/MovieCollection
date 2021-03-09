@@ -50,7 +50,7 @@ public class User {
 
     public static List<Movie> userMoviesListFromEntity(UserEntity userEntity){
         List<Movie> movieList = new ArrayList<>();
-        userEntity.getCreatedMovies().forEach(movie -> {
+        userEntity.getOwnedMovies().forEach(movie -> {
             movieList.add(Movie.fromEntity(movie));
         });
         return movieList;

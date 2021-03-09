@@ -1,5 +1,6 @@
 package com.moviecollection.MovieCollection.domain;
 
+import com.moviecollection.MovieCollection.entity.CastEntity;
 import com.moviecollection.MovieCollection.entity.MovieEntity;
 import com.moviecollection.MovieCollection.entity.UserEntity;
 import com.moviecollection.MovieCollection.enums.MovieCategories;
@@ -26,7 +27,7 @@ public class Movie {
     private MovieLanguage language;
     private List<User> ownerList;
     private User creator;
-
+    private List<Cast> castList;
 
     public static Movie fromEntity(MovieEntity movieEntity){
         return Movie.builder()

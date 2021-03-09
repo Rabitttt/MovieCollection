@@ -8,44 +8,44 @@
 </head>
 <body>
 <div th:replace="components/navbar"></div>
-<div class="row no-padding">
-    <div class="col-3 bg-dark" style="height:auto;"></div>
-    <div class="col-6" style="height:auto;">
+<div class="row no-padding ">
+    <div class="col-3 bg-dark page-height" style="height:auto;"></div>
+    <div class="col-6 page-height" style="height:auto;">
         <div class="d-flex justify-content-center pt-5">
             <h1>Movies</h1>
         </div>
         <hr>
         <div class="row no-padding">
             <div class="col-3">
-                <form class="form-padding rounded-lg " method="get">
+                <form class="form-padding rounded-lg " th:action="@{/serch/by/movie/name}" th:method="get">
                     <div class="container">
                         <div class="form-group">
                             <label for="name">Search by movie name :</label>
-                            <input type="text" class="form-control" name="name" id="name" placeholder="Movie Name">
+                            <input type="text" class="form-control" name="name" id="name" placeholder="Movie Name" th:value=*{name}>
                         </div>
                         <button class="btn btn-sm btn-info btn-block" type="submit">Search</button>
                     </div>
                 </form>
             </div>
             <div class="col-3">
-                <form class="form-padding rounded-lg" method="get">
+                <form class="form-padding rounded-lg" th:action="@{/serch/by/movie/cast}" th:method="get">
                     <div class="container">
                         <div class="form-group">
-                            <label for="cast">Search by movie cast :</label>
-                            <input type="text" class="form-control" name="cast" id="cast" placeholder="Actor/Actress">
+                            <label for="cast">Search by performer name :</label>
+                            <input type="text" class="form-control" name="cast" id="cast" placeholder="Actor/Actress" th:value=*{cast}>
                         </div>
                         <button class="btn btn-sm btn-info btn-block" type="submit">Search</button>
                     </div>
                 </form>
             </div>
             <div class="col-3">
-                <form class="form-padding rounded-lg" method="get">
+                <form class="form-padding rounded-lg" th:action="@{/serch/by/movie/category}" th:method="get">
                     <div class="container">
                         <div class="form-group">
-                            <label for="Category">Search by Category :</label>
-                            <select id="Category">
+                            <label for="category">Search by Category :</label>
+                            <select id="category" name="category">
                                 <option th:each="category : ${T(com.moviecollection.MovieCollection.enums.MovieCategories).values()}"
-                                        th:value="${category}"
+                                        th:value=*{category}
                                         th:text="${category}">
                                 </option>
                             </select>
@@ -56,11 +56,11 @@
 
             </div>
             <div class="col-3">
-                <form class="form-padding rounded-lg" method="get">
+                <form class="form-padding rounded-lg" th:action="@{/sort/by/movie/releaseDate}" th:method="get">
                     <div class="container">
                         <div class="form-group">
-                            <label for="Category">Sort by release date : </label>
-                            <select class="select_styled white_select" name="sort_list" id="sort_list">
+                            <label for="releaseDate">Sort by release date : </label>
+                            <select class="select_styled white_select" name="releaseDate" id="releaseDate">
                                 <option value="1" data-sort="ladd">Latest First
                                 <option value="2" selected="" data-sort="price">Oldest First
                             </select>
@@ -116,7 +116,7 @@
                 </span>
 
     </div>
-    <div class="col-3 bg-dark" style="height:auto;"></div>
+    <div class="col-3 bg-dark page-height" style="height:auto;"></div>
 </div>
 
 </body>

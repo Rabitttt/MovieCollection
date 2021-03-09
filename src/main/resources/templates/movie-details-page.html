@@ -51,14 +51,6 @@
         </div>
     </div>
     <div class="col-2 bg-warning movie-detail-page no-padding">
-        <div class="h-25 container d-flex justify-content-center" >
-            <form class=" form-padding rounded-lg form-padding" th:action="@{/user/movies/addCast}" th:object="${}" method="post">
-            <div class="form-group">
-                <label for="name">Movie Name</label>
-                <input type="text" class="form-control" name="name" id="name" placeholder="Movie Name" th:field=*{ca}>
-            </div>
-            </form>
-        </div>
         <div>
             <h2>Cast</h2>
 

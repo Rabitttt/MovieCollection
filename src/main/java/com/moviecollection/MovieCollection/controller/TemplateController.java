@@ -23,8 +23,6 @@ public class TemplateController {
     public String home(Model movieList){
         List<Movie> allMovies = new ArrayList<>();
         allMovies = movieService.getAllMovies();
-//        allMovies = movieService.getUserMovies(Integer.parseInt(userService.getUserByAuthUsers().getId()));
-//        userMovies.addAttribute("userMovies",movieList);
         movieList.addAttribute("movieList",allMovies);
         return "landing-page";
     }

@@ -1,7 +1,9 @@
 package com.moviecollection.MovieCollection.controller;
 
 import com.moviecollection.MovieCollection.auth.SessionManager;
+import com.moviecollection.MovieCollection.domain.Cast;
 import com.moviecollection.MovieCollection.domain.Movie;
+import com.moviecollection.MovieCollection.enums.MovieCategories;
 import com.moviecollection.MovieCollection.service.MovieService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,8 +14,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
-import java.beans.PropertyEditorSupport;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -26,27 +26,23 @@ public class MovieController {
 
     @PostMapping("user/movies/create")
     public String addNewMovie(@ModelAttribute(value = "movie") Movie movie) throws Exception {
-//        String sDate = movie.getReleaseDate();
-//        System.out.println(movie.getReleaseDate());
-//        Date date = new SimpleDateFormat("yyyy-MM-dd").parse(sDate);
-//        System.out.println(date);
-//        System.out.println(new Timestamp(date.getTime()));
-
         log.info("MovieController.addNewMovie movie: {}",movie);
-
         movieService.createMovie(movie);
         return "redirect:/user/profile";
     }
 
     @GetMapping("movie/details/{id}")
-    public String movieDetails(@PathVariable int id, Model movieDetails){
-
+    public String movieDetails(@PathVariable int id, Model movieDetails, Model model){
         Movie movie = movieService.getMovieById(id);
+//        castList.addAttribute("castList",movieService.movieCastList(movie));
         log.info("MovieController.movieDetails movie: {}",movie);
 
 
         if(movie.getCreator().getUserName().equals(SessionManager.getPrincipal().getUsername())){
             movieDetails.addAttribute("movie",movie);
+            model.addAttribute("newCast",new Cast());
+
+//            cast.addAttribute("newCast");
             return "edit-movie";
         }
         else {
@@ -74,6 +70,37 @@ public class MovieController {
         return "redirect:/movie/details/" + editedMovie.getId() + "";
     }
 
+    @PostMapping("user/details/newCast")
+    public String addCast(@ModelAttribute("newCast") Cast newCast){
+        System.out.println(newCast.getFirstName());
+        return "redirect:/";
+    }
+
+
+    @GetMapping("/serch/by/movie/name")
+    public String searchByMovieName(@RequestParam("name") String searchText,Model movieList) {
+        movieList.addAttribute("movieList",movieService.findByMovieName(searchText));
+        return "landing-page";
+    }
+
+    @GetMapping("/serch/by/movie/cast")
+    public String searchByMovieCast(@RequestParam("cast") String searchText,Model movieList) {
+        movieList.addAttribute("movieList", movieService.findByCastName(searchText));
+        return "landing-page";
+    }
+
+    @GetMapping("/serch/by/movie/category")
+    public String searchByMovieCategory(@RequestParam("category") MovieCategories category, Model movieList) {
+        movieList.addAttribute("movieList", movieService.findByCategory(category));
+        return "landing-page";
+    }
+    @GetMapping("/sort/by/movie/releaseDate")
+    public String searchByMovieCategory(Model movieList) {
+        movieList.addAttribute("movieList", movieService.sortByDate());
+        return "landing-page";
+    }
+
+    //time formatter
     @InitBinder
     public void initDateBinder(final WebDataBinder binder) {
         binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("MM-dd-yyyy"), true));

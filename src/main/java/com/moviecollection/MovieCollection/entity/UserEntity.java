@@ -5,8 +5,6 @@ import com.moviecollection.MovieCollection.security.ApplicationUserRole;
 import lombok.*;
 
 import javax.persistence.*;
-import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
 

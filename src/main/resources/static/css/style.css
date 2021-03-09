@@ -12,6 +12,11 @@ body {
     height: auto;
 }
 
+.page-height{
+    min-height: 94vh;
+    height: auto;
+}
+
 .user-profile-forms{
     height: 94vh;
 }
