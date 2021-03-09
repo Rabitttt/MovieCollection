@@ -70,9 +70,9 @@ public class MovieController {
         return "redirect:/movie/details/" + editedMovie.getId() + "";
     }
 
-    @PostMapping("user/details/newCast")
-    public String addCast(@ModelAttribute("newCast") Cast newCast){
-        System.out.println(newCast.getFirstName());
+    @PostMapping("user/details/{id}/newCast")
+    public String addCast(@PathVariable int id ,@ModelAttribute("newCast") Cast newCast){
+        movieService.createCastForMovie(newCast,id);
         return "redirect:/";
     }
 

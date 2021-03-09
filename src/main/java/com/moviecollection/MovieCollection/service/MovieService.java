@@ -59,6 +59,15 @@ public class MovieService {
     }
 
     @Transactional
+    public void createCastForMovie(Cast cast,int movieId)
+    {
+        Movie movie = Movie.fromEntity(movieRepository.getOne(movieId));
+        CastEntity castEntity = cast.toEntity();
+        castEntity.setMovieEntity(movie.toEntity());
+        castRepository.save(castEntity);
+    }
+
+    @Transactional
     public void addMovieToCollection(Movie movie){
         UserEntity userEntity = userService.getUserFromPrincipal();
         MovieEntity movieEntity = movie.toEntity();

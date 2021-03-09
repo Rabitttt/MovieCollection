@@ -64,18 +64,18 @@
     </div>
     <div class="col-2 bg-warning movie-detail-page no-padding">
         <div class="container d-flex justify-content-center" >
-            <form class="form-padding rounded-lg form-padding" th:action="@{/user/details/newCast}"  th:object="${newCast}" method="post">
+            <form class="form-padding rounded-lg form-padding" th:action="@{/user/details} + '/' + ${id} + '/' + @{newCast}"  th:object="${newCast}" method="post">
                 <div class="d-flex justify-content-center">
                     <h2>Add Cast</h2>
                 </div>
                 <div class="container">
                     <input type="hidden" class="form-control" name="id" id="castId" th:field=*{castId}>
                     <div class="form-group">
-                        <label for="firstName">Movie Name</label>
+                        <label for="firstName">First Name</label>
                         <input type="text" class="form-control" name="firstName" id="firstName" th:field=*{firstName}>
                     </div>
                     <div class="form-group">
-                        <label for="lastName">Description</label>
+                        <label for="lastName">Last Name</label>
                         <input type="text" class="form-control" name="lastName" id="lastName" th:field=*{lastName}>
                     </div>
 
