@@ -39,23 +39,40 @@
                         <p class="pr-3">Language :</p>
                         <p th:text="${movie.language} ?: 'unknown'"></p>
                     </div>
-                    <div th:if="${isCollected} == true">
-                    <form class="d-flex justify-content-end"
-                          th:action="@{/movie/details} + '/'+ ${movie.id}"
-                          method="post">
-                        <button type="submit" class="btn btn-outline-success">Add to Collection</button>
-                    </form>
+                    <div th:if="${isCollected}">
+                        <form class="d-flex justify-content-end"
+                              th:action="@{/movie/details} + '/'+ ${movie.id}"
+                              method="post">
+                            <button type="submit" class="btn btn-danger">Delete from Collection</button>
+                        </form>
+                    </div>
+                    <div th:unless="${isCollected}">
+                        <form class="d-flex justify-content-end"
+                              th:action="@{/movie/details} + '/'+ ${movie.id}"
+                              method="post">
+                            <button type="submit" class="btn btn-success">Add to Collection</button>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-2 bg-warning movie-detail-page no-padding">
-        <div>
-            <h2>Cast</h2>
-
+    <div class="col-2 movie-detail-page no-padding">
+        <div class="container d-flex flex-column justify-content-center">
+            <div class="d-flex justify-content-center py-5">
+                <h3>Cast</h3>
+            </div>
+            <span th:each="cast : ${castList}">
+                <div class="px-5">
+                    <div class="d-flex flex-row justify-content-center">
+                        <p th:text="${cast.firstName}" class="px-2"></p>
+                        <p th:text="${cast.lastName}"></p>
+                    </div>
+                </div>
+                    <hr>
+            </span>
         </div>
-        <hr>
+
     </div>
     <div class="col-3 movie-detail-page no-padding"></div>
 

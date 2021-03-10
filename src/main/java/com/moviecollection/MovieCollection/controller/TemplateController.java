@@ -1,6 +1,7 @@
 package com.moviecollection.MovieCollection.controller;
 
 import com.moviecollection.MovieCollection.domain.Movie;
+import com.moviecollection.MovieCollection.domain.User;
 import com.moviecollection.MovieCollection.service.MovieService;
 import com.moviecollection.MovieCollection.service.UserService;
 import lombok.AllArgsConstructor;
@@ -28,7 +29,7 @@ public class TemplateController {
     }
     @GetMapping("/register")
     public String registerPage(Model model) {
-        com.moviecollection.MovieCollection.domain.User user = new com.moviecollection.MovieCollection.domain.User();
+        User user = new User();
         model.addAttribute("user", user);
         return "register";
     }

@@ -1,5 +1,6 @@
 package com.moviecollection.MovieCollection.service;
 
+import com.moviecollection.MovieCollection.auth.SessionManager;
 import com.moviecollection.MovieCollection.domain.Cast;
 import com.moviecollection.MovieCollection.domain.Movie;
 import com.moviecollection.MovieCollection.domain.User;
@@ -33,8 +34,7 @@ public class MovieService {
         UserEntity userEntity = userService.getUserFromPrincipal();
         movie.setCreator(User.fromEntity(userEntity));
         MovieEntity movieEntity = movie.toEntity();
-        userEntity.getOwnedMovies().add(movie.toEntity());
-        movieRepository.save(movieEntity);
+        addMovieToCollection(Movie.fromEntity(movieEntity)); //if i save on this function it will be twin data because i save in addMovieToCollection function
         return Movie.fromEntity(movieEntity);
     }
     @Transactional
@@ -80,6 +80,17 @@ public class MovieService {
         MovieEntity movieEntity = movieRepository.getOne(movieId);
         return Movie.movieOwnerListFromEntity(movieEntity);
     }
+    @Transactional
+    public List<Cast> getMovieCastList(int movieId){
+        MovieEntity movieEntity = movieRepository.getOne(movieId);
+        List<CastEntity> castEntities = castRepository.findAllByMovieEntity(movieId);
+        List<Cast> castList = new ArrayList<>();
+        castEntities.forEach(castEntity -> {
+            castList.add(Cast.fromEntity(castEntity));
+        });
+
+        return castList;
+    }
 
     @Transactional
     public Movie updateMovie(Movie movie){
@@ -92,6 +103,22 @@ public class MovieService {
         movieEntity = movieRepository.save(movieEntity);
         return Movie.fromEntity(movieEntity);
 
+    }
+
+    public boolean isMovieCollected(int movieId)
+    {
+        UserEntity userEntity = userService.getUserFromPrincipal();
+        User activeUser = User.fromEntity(userEntity);
+        MovieEntity movieEntity = movieRepository.getOne(movieId);
+        List<User> ownerList= Movie.movieOwnerListFromEntity(movieEntity);
+        boolean isCollected = false;
+        if (ownerList.stream()
+                .anyMatch(owner -> owner.getId() == activeUser.getId())) {
+            isCollected = true;
+        } else {
+            isCollected = false;
+        }
+        return isCollected;
     }
     @Transactional
     public List<Movie> findByMovieName(String searchText){

@@ -1,66 +1,201 @@
-
-<div >
-    <div class="h-50 d-flex justify-content-center align-items-center">
-        <img th:src="@{/images/default-image/default-movie-image.jpg}" alt="Default Picture" style="width:auto;height:30vh;">
-    </div>
-    <div class="h-50">
-        <div class="container">
-            <div class="container px-2">
-
-                <div class="d-flex flex-column justify-content-around">
-                    <div class="d-flex flex-row justify-content-left">
-                        <p class="pr-3">Movie Name :</p>
-                        <p th:text="${movie.name}"></p>
-                    </div>
-                    <div class="d-flex flex-row justify-content-left">
-                        <p class="pr-3">Description :</p>
-                        <p th:text="${movie.description}"></p>
-                    </div>
-                    <div class="d-flex flex-row justify-content-left">
-                        <p class="pr-3">Release Date :</p>
-                        <p th:text="${movie.releaseDate} ?: 'unknown'"></p>
-                    </div>
-                    <div class="d-flex flex-row justify-content-left">
-                        <p class="pr-3">Category :</p>
-                        <p th:text="${movie.category} ?: 'unknown'"></p>
-                    </div>
-                    <div class="d-flex flex-row justify-content-left">
-                        <p class="pr-3">Language :</p>
-                        <p th:text="${movie.language} ?: 'unknown'"></p>
-                    </div>
-                    <form class="d-flex justify-content-end"
-                          th:action="@{/movie/details} + '/'+ ${movie.id}"
-                          method="get">
-                        <button type="submit" class="btn btn-outline-success">Movie Detail</button>
-                    </form>
+<div class="row no-padding">
+    <div class="col-3">
+        <form class="form-padding rounded-lg " th:action="@{/search/by/movie/name}" th:method="get">
+            <div class="container">
+                <div class="form-group">
+                    <label for="name">Search by movie name :</label>
+                    <input type="text" class="form-control" name="name" id="name" placeholder="Movie Name" th:value=*{name}>
                 </div>
+                <button class="btn btn-sm btn-info btn-block" type="submit">Search</button>
+            </div>
+        </form>
+    </div>
+    <div class="col-3">
+        <form class="form-padding rounded-lg" th:action="@{/search/by/movie/cast}" th:method="get">
+            <div class="container">
+                <div class="form-group">
+                    <label for="cast">Performer name :</label>
+                    <input type="text" class="form-control" name="cast" id="cast" placeholder="Actor/Actress" th:value=*{cast}>
+                </div>
+                <button class="btn btn-sm btn-info btn-block" type="submit">Search</button>
+            </div>
+        </form>
+    </div>
+    <div class="col-3">
+        <form class="form-padding rounded-lg" th:action="@{/search/by/movie/category}" th:method="get">
+            <div class="container">
+                <div class="form-group">
+                    <label for="category">Search by Category :</label>
+                    <select id="category" name="category">
+                        <option th:each="category : ${T(com.moviecollection.MovieCollection.enums.MovieCategories).values()}"
+                                th:value=*{category}
+                                th:text="${category}">
+                        </option>
+                    </select>
+                </div>
+                <button class="btn btn-sm btn-info btn-block" type="submit">Search</button>
+            </div>
+        </form>
+
+    </div>
+    <div class="col-3">
+        <form class="form-padding rounded-lg" th:action="@{/sort/by/movie/releaseDate}" th:method="get">
+            <div class="container">
+                <div class="form-group">
+                    <label for="releaseDate">Sort by release date : </label>
+                    <select class="select_styled white_select" name="releaseDate" id="releaseDate">
+                        <option value="1" data-sort="ladd">Latest First
+                        <option value="2" selected="" data-sort="price">Oldest First
+                    </select>
+                </div>
+                <button class="btn btn-sm btn-info btn-block" type="submit">Search</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>Landing</title>
+</head>
+<body>
+<div th:replace="components/navbar"></div>
+<div class="row no-padding ">
+    <div class="col-2 page-height"></div>
+    <div class="col-2 page-height">
+        <div class="d-flex flex-column justify-content-around border border-end" style="height:94vh;">
+            <div>
+                <form class="form-padding rounded-lg " th:action="@{/search/by/movie/name}" th:method="get">
+                    <div class="container">
+                        <div class="form-group">
+                            <label for="name">Search by movie name :</label>
+                            <input type="text" class="form-control" name="name" id="name" placeholder="Movie Name" th:value=*{name}>
+                        </div>
+                        <button class="btn btn-sm btn-info btn-block" type="submit">Search</button>
+                    </div>
+                </form>
+            </div>
+            <div>
+                <form class="form-padding rounded-lg" th:action="@{/search/by/movie/cast}" th:method="get">
+                    <div class="container">
+                        <div class="form-group">
+                            <label for="cast">Performer name :</label>
+                            <input type="text" class="form-control" name="cast" id="cast" placeholder="Actor/Actress" th:value=*{cast}>
+                        </div>
+                        <button class="btn btn-sm btn-info btn-block" type="submit">Search</button>
+                    </div>
+                </form>
+            </div>
+            <div >
+                <form class="form-padding rounded-lg" th:action="@{/search/by/movie/category}" th:method="get">
+                    <div class="container">
+                        <div class="form-group">
+                            <label for="category">Search by Category :</label>
+                            <select id="category" name="category">
+                                <option th:each="category : ${T(com.moviecollection.MovieCollection.enums.MovieCategories).values()}"
+                                        th:value=*{category}
+                                        th:text="${category}">
+                                </option>
+                            </select>
+                        </div>
+                        <button class="btn btn-sm btn-info btn-block" type="submit">Search</button>
+                    </div>
+                </form>
+
+            </div>
+            <div >
+                <form class="form-padding rounded-lg" th:action="@{/sort/by/movie/releaseDate}" th:method="get">
+                    <div class="container">
+                        <div class="form-group">
+                            <label for="releaseDate">Sort by release date : </label>
+                            <select class="select_styled white_select" name="releaseDate" id="releaseDate">
+                                <option value="1" data-sort="ladd">Latest First
+                                <option value="2" selected="" data-sort="price">Oldest First
+                            </select>
+                        </div>
+                        <button class="btn btn-sm btn-info btn-block" type="submit">Search</button>
+                    </div>
+                </form>
+            </div>
+            <div>
+                <a class="btn btn-sm btn-block btn-primary bg-success" href="/" role="button">Clear Filter</a>
             </div>
         </div>
     </div>
-
-</div>
-<hr>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="h-50 no-padding d-flex justify-content-center align-items-center">
-    <img th:src="@{/images/default-image/default-movie-image.jpg}" alt="Default Picture" style="width:auto;height:40vh;">
-</div>
-<div class="h-50 no-padding">
-    <div class="container">
-        <div class="d-flex flex-row justify-content-left no-padding">
-            <p>Movie Name :</p>
-            <p th:text="${movie.name}"></p>
+    <div class="col-6 page-height">
+        <div class="d-flex justify-content-center pt-5">
+            <h1>Movies</h1>
         </div>
+        <hr>
+        <span th:each="movie : ${movieList}">
+                    <div class="row no-padding my-4">
+                        <div class="col d-flex justify-content-center align-items-center">
+                            <img th:src="@{/images/default-image/default-movie-image.jpg}" alt="Default Picture" style="width:auto;height:20vh;">
+                        </div>
+                        <div class="col">
+                            <div class="container">
+                                <div class="container px-2">
+
+                                <div class="d-flex flex-column justify-content-around">
+                                    <div class="d-flex flex-row justify-content-left">
+                                        <p class="pr-3">Movie Name :</p>
+                                        <p th:text="${movie.name}"></p>
+                                    </div>
+                                    <div class="d-flex flex-row justify-content-left">
+                                        <p class="pr-3">Description :</p>
+                                        <p th:text="${movie.description}"></p>
+                                    </div>
+                                    <div class="d-flex flex-row justify-content-left">
+                                        <p class="pr-3">Release Date :</p>
+                                        <p th:text="${movie.releaseDate} ?: 'unknown'"></p>
+                                    </div>
+                                    <div class="d-flex flex-row justify-content-left">
+                                        <p class="pr-3">Category :</p>
+                                        <p th:text="${movie.category} ?: 'unknown'"></p>
+                                    </div>
+                                    <div class="d-flex flex-row justify-content-left">
+                                        <p class="pr-3">Language :</p>
+                                        <p th:text="${movie.language} ?: 'unknown'"></p>
+                                    </div>
+                                    <form class="d-flex justify-content-end"
+                                          th:action="@{/movie/details} + '/'+ ${movie.id}"
+                                          method="get">
+                                        <button type="submit" class="btn btn-outline-success">Movie Detail</button>
+                                    </form>
+                            </div>
+                            </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <hr>
+                </span>
+
     </div>
+    <div class="col-2 bg-dark page-height" style="height:auto;"></div>
 </div>
+
+</body>
+</html>
+
+
+
+
+
+@Transactional
+public Movie createMovie(Movie movie) throws Exception{
+UserEntity userEntity = userService.getUserFromPrincipal();
+movie.setCreator(User.fromEntity(userEntity));
+MovieEntity movieEntity = movie.toEntity();
+userEntity.getOwnedMovies().add(movie.toEntity());
+movieRepository.save(movieEntity);
+return Movie.fromEntity(movieEntity);
+}

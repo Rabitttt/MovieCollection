@@ -32,24 +32,20 @@ public class MovieController {
     }
 
     @GetMapping("movie/details/{id}")
-    public String movieDetails(@PathVariable int id, Model movieDetails, Model model){
+    public String movieDetails(@PathVariable int id, Model movieDetails, Model model,Model castList){
         Movie movie = movieService.getMovieById(id);
-//        castList.addAttribute("castList",movieService.movieCastList(movie));
-        log.info("MovieController.movieDetails movie: {}",movie);
-
+        log.info("MovieController.movieDetails Movie Owners Kontrolu movie: {}",movie);
+        castList.addAttribute("castList",movieService.getMovieCastList(id));
 
         if(movie.getCreator().getUserName().equals(SessionManager.getPrincipal().getUsername())){
             movieDetails.addAttribute("movie",movie);
             model.addAttribute("newCast",new Cast());
-
-//            cast.addAttribute("newCast");
             return "edit-movie";
         }
         else {
-//            boolean isCollected = true;
-
+            boolean isCollected = movieService.isMovieCollected(id);
             movieDetails.addAttribute("movie",movie);
-            movieDetails.addAttribute("isCollected",true);
+            movieDetails.addAttribute("isCollected",isCollected);
             return "movie-details-page";
         }
     }
@@ -59,7 +55,7 @@ public class MovieController {
         Movie movie = movieService.getMovieById(id);
         log.info("MovieController.addMovieToCollection movie: {}",movie);
         movieService.addMovieToCollection(movie);
-        return "redirect:/login";
+        return "redirect:/movie/details/" + id + "";
     }
     @PostMapping("/user/movies/edit")
     public String updateMovie(@ModelAttribute("movie")Movie editedMovie){
@@ -73,23 +69,22 @@ public class MovieController {
     @PostMapping("user/details/{id}/newCast")
     public String addCast(@PathVariable int id ,@ModelAttribute("newCast") Cast newCast){
         movieService.createCastForMovie(newCast,id);
-        return "redirect:/";
+        return "redirect:/movie/details/" + id + "";
     }
 
-
-    @GetMapping("/serch/by/movie/name")
+    @GetMapping("/search/by/movie/name")
     public String searchByMovieName(@RequestParam("name") String searchText,Model movieList) {
         movieList.addAttribute("movieList",movieService.findByMovieName(searchText));
         return "landing-page";
     }
 
-    @GetMapping("/serch/by/movie/cast")
+    @GetMapping("/search/by/movie/cast")
     public String searchByMovieCast(@RequestParam("cast") String searchText,Model movieList) {
         movieList.addAttribute("movieList", movieService.findByCastName(searchText));
         return "landing-page";
     }
 
-    @GetMapping("/serch/by/movie/category")
+    @GetMapping("/search/by/movie/category")
     public String searchByMovieCategory(@RequestParam("category") MovieCategories category, Model movieList) {
         movieList.addAttribute("movieList", movieService.findByCategory(category));
         return "landing-page";

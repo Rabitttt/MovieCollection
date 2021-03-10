@@ -19,7 +19,7 @@
                 <div class="col d-flex justify-content-center align-items-center">
                     <img class="rounded-circle" th:src="@{/images/default-image/default-profile-picture.jpg}" alt="Default Picture" style="width:auto;height:15vh;">
                 </div>
-                <div class="col">
+                <div class="col d-flex flex-column justify-content-around">
                     <div class="container">
                         <div th:each="user : ${user}">
                             <div class="d-flex flex-row justify-content-left">
@@ -27,7 +27,7 @@
                                 <p th:text="${user.userName} ?: 'unknown'"></p>
                             </div>
                             <div class="d-flex flex-row justify-content-left">
-                                <p class="pr-3">Email :</p>
+                                <p class="pr-3">Email:</p>
                                 <p th:text="${user.email} ?: 'unknown'"></p>
                             </div>
                             <div class="d-flex flex-row justify-content-left">
@@ -119,9 +119,11 @@
                                     <p class="pr-3">Language :</p>
                                     <p th:text="${movie.language} ?: 'unknown'"></p>
                                 </div>
-                                <div>
-                                    <button type="button" class="btn btn-outline-success">Edit Movie</button>
-                                </div>
+                                <form class="d-flex justify-content-end"
+                                      th:action="@{/movie/details} + '/'+ ${movie.id}"
+                                      method="get">
+                                        <button type="submit" class="btn btn-outline-success">Movie Detail</button>
+                                </form>
                             </div>
                             </div>
                         </div>

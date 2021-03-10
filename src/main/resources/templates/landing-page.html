@@ -10,14 +10,14 @@
 <div th:replace="components/navbar"></div>
 <div class="row no-padding ">
     <div class="col-3 bg-dark page-height" style="height:auto;"></div>
-    <div class="col-6 page-height" style="height:auto;">
+    <div class="col-6 page-height">
         <div class="d-flex justify-content-center pt-5">
             <h1>Movies</h1>
         </div>
         <hr>
         <div class="row no-padding">
             <div class="col-3">
-                <form class="form-padding rounded-lg " th:action="@{/serch/by/movie/name}" th:method="get">
+                <form class="form-padding rounded-lg " th:action="@{/search/by/movie/name}" th:method="get">
                     <div class="container">
                         <div class="form-group">
                             <label for="name">Search by movie name :</label>
@@ -28,7 +28,7 @@
                 </form>
             </div>
             <div class="col-3">
-                <form class="form-padding rounded-lg" th:action="@{/serch/by/movie/cast}" th:method="get">
+                <form class="form-padding rounded-lg" th:action="@{/search/by/movie/cast}" th:method="get">
                     <div class="container">
                         <div class="form-group">
                             <label for="cast">Performer name :</label>
@@ -39,7 +39,7 @@
                 </form>
             </div>
             <div class="col-3">
-                <form class="form-padding rounded-lg" th:action="@{/serch/by/movie/category}" th:method="get">
+                <form class="form-padding rounded-lg" th:action="@{/search/by/movie/category}" th:method="get">
                     <div class="container">
                         <div class="form-group">
                             <label for="category">Search by Category :</label>
@@ -69,6 +69,9 @@
                     </div>
                 </form>
             </div>
+        </div>
+        <div class="pt-4">
+            <a class="btn btn-block btn-danger" href="/" role="button">Clear Filter</a>
         </div>
         <hr>
         <span th:each="movie : ${movieList}">
