@@ -43,6 +43,7 @@ public class MovieController {
             return "edit-movie";
         }
         else {
+
             boolean isCollected = movieService.isMovieCollected(id);
             movieDetails.addAttribute("movie",movie);
             movieDetails.addAttribute("isCollected",isCollected);
@@ -66,10 +67,27 @@ public class MovieController {
         return "redirect:/movie/details/" + editedMovie.getId() + "";
     }
 
-    @PostMapping("user/details/{id}/newCast")
+    @PostMapping("user/movies/{id}/newCast")
     public String addCast(@PathVariable int id ,@ModelAttribute("newCast") Cast newCast){
         movieService.createCastForMovie(newCast,id);
         return "redirect:/movie/details/" + id + "";
+    }
+
+    @PostMapping("/user/movies/{id}/remove/from/collection")
+    public String removeFromCollection(@PathVariable int id){
+        movieService.removeMovieFromCollection(id);
+        return "redirect:/movie/details/" + id + "";
+    }
+
+    @PostMapping("/user/movies/{id}/delete")
+    public String deleteMovie(@PathVariable int id){
+        movieService.deleteMovie(id);
+        return "redirect:/user/profile";
+    }
+    @PostMapping("/user/movies/cast/{castId}/delete")
+    public String deleteCast(@PathVariable int castId){
+        int movieId = movieService.deleteCastFromMovie(castId);
+        return "redirect:/movie/details/" + movieId + "";
     }
 
     @GetMapping("/search/by/movie/name")

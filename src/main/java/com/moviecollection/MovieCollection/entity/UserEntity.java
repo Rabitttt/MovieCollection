@@ -38,7 +38,7 @@ public class UserEntity {
     @Column(name = "role") //ADMIN or USER
     @Enumerated(EnumType.STRING)
     private ApplicationUserRole role;
-
+    
     @OneToMany(mappedBy = "creator")
     private  List<MovieEntity> createdMovies; //only creator can update movie
 

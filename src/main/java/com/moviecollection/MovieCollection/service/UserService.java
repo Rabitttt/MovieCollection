@@ -43,6 +43,8 @@ public class UserService {
             return false;
         }
     }
+
+
     @Transactional
     public List<Movie> getUserMovies(int id) {
        UserEntity userEntity = userRepository.getOne(id);

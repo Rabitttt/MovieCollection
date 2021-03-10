@@ -61,10 +61,13 @@
                     <button class="btn btn-lg btn-primary btn-block" type="submit">Save Updates</button>
                 </div>
             </form>
+            <form class="border border-1 form-padding rounded-lg form-padding" th:action="@{/user/movies} + '/' + ${id} + '/' + @{delete}" method="post">
+                <button class="btn btn-lg btn-danger btn-block" type="submit">Delete Movie</button>
+            </form>
     </div>
     <div class="col-2 movie-detail-page no-padding">
         <div class="container d-flex justify-content-center" >
-            <form class="form-padding rounded-lg form-padding" th:action="@{/user/details} + '/' + ${id} + '/' + @{newCast}"  th:object="${newCast}" method="post">
+            <form class="form-padding rounded-lg form-padding" th:action="@{/user/movies} + '/' + ${id} + '/' + @{newCast}"  th:object="${newCast}" method="post">
                 <div class="d-flex justify-content-center">
                     <h2>Add Cast</h2>
                 </div>
@@ -95,7 +98,9 @@
                         <p th:text="${cast.firstName}" class="px-2"></p>
                         <p th:text="${cast.lastName}"></p>
                     </div>
-                    <button class="btn btn-sm btn-danger btn-block" type="submit">Delete</button>
+                <form class="form-padding rounded-lg form-padding" th:action="@{/user/movies/cast} + '/' + ${cast.castId} + '/' + @{delete}"  method="post">
+                        <button class="btn btn-sm btn-danger btn-block" type="submit">Delete</button>
+                    </form>
                 </div>
                     <hr>
             </span>

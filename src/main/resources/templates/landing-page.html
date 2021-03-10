@@ -104,8 +104,13 @@
                                         <p class="pr-3">Language :</p>
                                         <p th:text="${movie.language} ?: 'unknown'"></p>
                                     </div>
-                                    <form class="d-flex justify-content-end"
+                                    <form sec:authorize="isAuthenticated()" class="d-flex justify-content-end"
                                           th:action="@{/movie/details} + '/'+ ${movie.id}"
+                                          method="get">
+                                        <button type="submit" class="btn btn-outline-success">Movie Detail</button>
+                                    </form>
+                                    <form sec:authorize="isAnonymous()" class="d-flex justify-content-end"
+                                          th:action="@{/login}"
                                           method="get">
                                         <button type="submit" class="btn btn-outline-success">Movie Detail</button>
                                     </form>

@@ -12,13 +12,11 @@ import com.moviecollection.MovieCollection.repository.CastRepository;
 import com.moviecollection.MovieCollection.repository.MovieRepository;
 import com.moviecollection.MovieCollection.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 
 @Service
@@ -57,7 +55,6 @@ public class MovieService {
         MovieEntity movieEntity = movieRepository.getOne(movie.toEntity().getId());
         return Cast.getMovieCastList(movieEntity);
     }
-
     @Transactional
     public void createCastForMovie(Cast cast,int movieId)
     {
@@ -66,7 +63,6 @@ public class MovieService {
         castEntity.setMovieEntity(movie.toEntity());
         castRepository.save(castEntity);
     }
-
     @Transactional
     public void addMovieToCollection(Movie movie){
         UserEntity userEntity = userService.getUserFromPrincipal();
@@ -74,7 +70,6 @@ public class MovieService {
         userEntity.getOwnedMovies().add(movieEntity);
         userRepository.save(userEntity);
     }
-
     @Transactional
     public List<User> getMovieOwners(int movieId) {
         MovieEntity movieEntity = movieRepository.getOne(movieId);
@@ -93,6 +88,14 @@ public class MovieService {
     }
 
     @Transactional
+    public int deleteCastFromMovie( int castId){
+        CastEntity castEntity = castRepository.getOne(castId);
+        int movieId = castEntity.getMovieEntity().getId();
+        castRepository.delete(castEntity);
+        return movieId;
+    }
+
+    @Transactional
     public Movie updateMovie(Movie movie){
         MovieEntity movieEntity = movieRepository.findById(movie.getId()).orElseThrow();
         movieEntity.setCategory(movie.getCategory());
@@ -103,6 +106,21 @@ public class MovieService {
         movieEntity = movieRepository.save(movieEntity);
         return Movie.fromEntity(movieEntity);
 
+    }
+
+    @Transactional
+    public void removeMovieFromCollection(int movieId){
+
+        MovieEntity movieEntity = movieRepository.findById(movieId).orElseThrow();
+        UserEntity authUser = userService.getUserFromPrincipal();
+        authUser.getOwnedMovies().remove(movieEntity);
+        userRepository.save(authUser);
+    }
+
+    @Transactional
+    public void deleteMovie(int movieId){
+        MovieEntity movieEntity = movieRepository.findById(movieId).orElseThrow();
+        movieRepository.deleteById(movieEntity.getId());
     }
 
     public boolean isMovieCollected(int movieId)
