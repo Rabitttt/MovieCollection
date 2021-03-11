@@ -1,6 +1,5 @@
 package com.moviecollection.MovieCollection.service;
 
-import com.moviecollection.MovieCollection.auth.SessionManager;
 import com.moviecollection.MovieCollection.domain.Cast;
 import com.moviecollection.MovieCollection.domain.Movie;
 import com.moviecollection.MovieCollection.domain.User;
@@ -12,7 +11,6 @@ import com.moviecollection.MovieCollection.repository.CastRepository;
 import com.moviecollection.MovieCollection.repository.MovieRepository;
 import com.moviecollection.MovieCollection.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -120,7 +118,10 @@ public class MovieService {
     @Transactional
     public void deleteMovie(int movieId){
         MovieEntity movieEntity = movieRepository.findById(movieId).orElseThrow();
-        movieRepository.deleteById(movieEntity.getId());
+        for (UserEntity userEntity: movieEntity.getOwnerList()) {
+            userEntity.getOwnedMovies().remove(movieEntity);
+        }
+        movieRepository.delete(movieEntity);
     }
 
     public boolean isMovieCollected(int movieId)
@@ -140,7 +141,7 @@ public class MovieService {
     }
     @Transactional
     public List<Movie> findByMovieName(String searchText){
-        List<MovieEntity> machedMovieList = movieRepository.findByNameLike(searchText);
+        List<MovieEntity> machedMovieList = movieRepository.findByNameContainingIgnoreCase(searchText);
         List<Movie> movieList = new ArrayList<>();
         machedMovieList.forEach(movieEntity -> {
             movieList.add(Movie.fromEntity(movieEntity));
@@ -150,7 +151,7 @@ public class MovieService {
 
     @Transactional
     public List<Movie> findByCastName(String searchText){
-        List<CastEntity> matchedCastEntity = castRepository.findByFirstNameLike(searchText);
+        List<CastEntity> matchedCastEntity = castRepository.findByFirstNameContainingIgnoreCase(searchText);
         List<Movie> movieList = new ArrayList<>();
         matchedCastEntity.forEach(movieEntity -> {
             matchedCastEntity.forEach(castEntity -> {
@@ -168,13 +169,20 @@ public class MovieService {
         });
         return movieList;
     }
+
     @Transactional
-    public List<Movie> sortByDate(){
-        List<MovieEntity> sortedMovieList = movieRepository.findAllByOrderByReleaseDateAsc();
+    public List<Movie> sortByDate(String type){
+        List<MovieEntity> sortedMovieList;
+        if(type.equals("newest")){
+            sortedMovieList = movieRepository.findAllByOrderByReleaseDateAsc();
+        }
+        else {
+            sortedMovieList = movieRepository.findAllByOrderByReleaseDateDesc();
+        }
         List<Movie> movieList = new ArrayList<>();
-        System.out.println(sortedMovieList.stream().findFirst());
         sortedMovieList.forEach(movieEntity -> {
-            movieList.add(Movie.fromEntity(movieEntity));
+            if(movieEntity.getReleaseDate() != null)
+                movieList.add(Movie.fromEntity(movieEntity));
         });
         return movieList;
     }

@@ -85,6 +85,7 @@ public class MovieController {
         movieService.deleteMovie(id);
         return "redirect:/user/profile";
     }
+
     @PostMapping("/user/movies/cast/{castId}/delete")
     public String deleteCast(@PathVariable int castId){
         int movieId = movieService.deleteCastFromMovie(castId);
@@ -108,11 +109,11 @@ public class MovieController {
         movieList.addAttribute("movieList", movieService.findByCategory(category));
         return "landing-page";
     }
-    @GetMapping("/sort/by/movie/releaseDate")
-    public String searchByMovieCategory(Model movieList) {
-        movieList.addAttribute("movieList", movieService.sortByDate());
-        return "landing-page";
-    }
+//    @GetMapping("/sort/by/movie/releaseDate")
+//    public String searchByMovieReleaseDate(Model movieList) {
+//        movieList.addAttribute("movieList", movieService.sortByDate("newest"));
+//        return "landing-page";
+//    }
 
     //time formatter
     @InitBinder

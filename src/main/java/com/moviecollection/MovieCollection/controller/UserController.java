@@ -1,18 +1,15 @@
 package com.moviecollection.MovieCollection.controller;
 
-import com.moviecollection.MovieCollection.auth.ApplicationUserDetails;
 import com.moviecollection.MovieCollection.auth.SessionManager;
 import com.moviecollection.MovieCollection.domain.Movie;
 import com.moviecollection.MovieCollection.domain.User;
 import com.moviecollection.MovieCollection.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.dom4j.rule.Mode;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -57,7 +54,7 @@ public class UserController {
     @PostMapping("/{id}/delete")
     public String deleteUser(@PathVariable("id") int id)
     {
-        userService.deleteUserFromId(id);
+        userService.deleteUser(id);
         return "redirect:/";
     }
 

@@ -1,5 +1,0 @@
-DROP TABLE user_role CASCADE;
-DROP TABLE user_with_role;
-
-ALTER TABLE  users
-ADD COLUMN role VARCHAR;

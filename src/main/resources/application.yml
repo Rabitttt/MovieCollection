@@ -6,8 +6,10 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+    show-sql: true
 
-#hot reload for thymeleaf
+
+  #hot reload for thymeleaf
   thymeleaf: # Thymeleaf
     cache: false
     mode: HTML

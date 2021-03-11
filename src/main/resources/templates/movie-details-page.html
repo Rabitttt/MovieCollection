@@ -13,22 +13,7 @@
 <div class="row no-padding">
     <div class="col-2 movie-detail-page no-padding"></div>
     <div class="col-2 movie-detail-page no-padding">
-                <div class="d-flex flex-column justify-content-around mt-5 py-4 px-4 bg-info rounded-pill">
-                    <div class="container">
-                            <div class="d-flex flex-row justify-content-left">
-                                <p class="pr-3">Username :</p>
-                                <p th:text="${creator.userName}"></p>
-                            </div>
-                            <div class="d-flex flex-row justify-content-left">
-                                <p class="pr-3">Email:</p>
-                                <p th:text="${creator.email}"></p>
-                            </div>
-                            <div class="d-flex flex-row justify-content-left">
-                                <p class="pr-3">Gender :</p>
-                                <p th:text="${creator.gender}"></p>
-                            </div>
-                    </div>
-                </div>
+
             <div class="container d-flex flex-column justify-content-center">
                 <div class="d-flex justify-content-center py-5">
                     <h3>Owners List</h3>
@@ -97,6 +82,28 @@
         </div>
     </div>
     <div class="col-2 movie-detail-page no-padding">
+        <div class="d-flex justify-content-center pt-5">
+            <h2>Creator</h2>
+        </div>
+        <div class="col d-flex justify-content-center align-items-center">
+            <img class="rounded-circle" th:src="@{/images/default-image/default-profile-picture.jpg}" alt="Default Picture" style="width:auto;height:15vh;">
+        </div>
+        <div class="col d-flex flex-column justify-content-around align-items-center">
+
+            <div class="d-flex flex-row justify-content-left">
+                <p class="pr-3">Username :</p>
+                <p th:text="${creator.userName} ?: 'unknown'"></p>
+            </div>
+            <div class="d-flex flex-row justify-content-left">
+                <p class="pr-3">Email:</p>
+                <p th:text="${creator.email} ?: 'unknown'"></p>
+            </div>
+            <div class="d-flex flex-row justify-content-left">
+                <p class="pr-3">Gender :</p>
+                <p th:text="${creator.gender} ?: 'unknown'"></p>
+            </div>
+        </div>
+        <hr>
         <div class="container d-flex flex-column justify-content-center">
             <div class="d-flex justify-content-center py-5">
                 <h3>Cast</h3>

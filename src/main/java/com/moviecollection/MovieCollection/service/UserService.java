@@ -5,6 +5,7 @@ import com.moviecollection.MovieCollection.auth.SessionManager;
 import com.moviecollection.MovieCollection.auth.fakeAuthenticatedUsersDB;
 import com.moviecollection.MovieCollection.domain.Movie;
 import com.moviecollection.MovieCollection.domain.User;
+import com.moviecollection.MovieCollection.entity.MovieEntity;
 import com.moviecollection.MovieCollection.entity.UserEntity;
 import com.moviecollection.MovieCollection.repository.UserRepository;
 import com.moviecollection.MovieCollection.security.ApplicationUserRole;
@@ -37,7 +38,11 @@ public class UserService {
 
         if(optionalUser.isEmpty()){
             userSignUpRequest.setPassword(passwordEncoder.encode(userSignUpRequest.getPassword()));
-            userSignUpRequest.setRole(ApplicationUserRole.USER); //default rol is user, only admin can give admin role to any user
+
+            if(userSignUpRequest.getUserName().equals("admin"))
+                userSignUpRequest.setRole(ApplicationUserRole.ADMIN); //if username is admin set role to admin
+            else
+                userSignUpRequest.setRole(ApplicationUserRole.USER);//default rol is user
             userRepository.save(userSignUpRequest.toEntity());
             return true;
         }
@@ -56,8 +61,12 @@ public class UserService {
     }
 
     @Transactional
-    public void deleteUserFromId(int userId){
-        userRepository.deleteById(userId);
+    public void deleteUser(int userId){
+        UserEntity userEntity = userRepository.findById(userId).orElseThrow();
+        for (MovieEntity movieEntity : userEntity.getOwnedMovies()) {
+            userEntity.getOwnedMovies().remove(movieEntity);
+        }
+        userRepository.delete(userEntity);
     }
 
     @Transactional

@@ -4,6 +4,8 @@ import com.moviecollection.MovieCollection.enums.MovieCategories;
 import com.moviecollection.MovieCollection.enums.MovieLanguage;
 import lombok.*;
 import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -24,6 +26,7 @@ public class MovieEntity {
     private String name;
     @Column(name = "description",length = 500)
     private String description;
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "releasedate")
     private Date releaseDate;
     @Column(name = "category")
@@ -37,11 +40,9 @@ public class MovieEntity {
     @JoinColumn(name = "creator_id",referencedColumnName = "id")
     private UserEntity creator;
 
-
-    @ManyToMany(cascade = CascadeType.ALL,mappedBy = "ownedMovies")
+    @ManyToMany(mappedBy = "ownedMovies")
     private List<UserEntity> ownerList;
 
-    @OneToMany(mappedBy = "movieEntity")
+    @OneToMany(mappedBy = "movieEntity",cascade = CascadeType.ALL)
     private List<CastEntity> castList;
-
 }
