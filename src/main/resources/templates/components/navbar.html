@@ -13,6 +13,9 @@
         </button>
         <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
             <ul class="navbar-nav">
+                <li sec:authorize="hasAnyAuthority('ADMIN')" class ="nav-item active">
+                    <a class="nav-link" href="/user/admin/panel">Users</a>
+                </li>
                 <li sec:authorize="isAnonymous()" class ="nav-item active">
                     <a class="nav-link" href="/register">Sign Up</a>
                 </li>

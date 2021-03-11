@@ -15,8 +15,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor //for dependency injection
@@ -43,11 +45,24 @@ public class UserService {
             return false;
         }
     }
-
+    @Transactional
+    public List<User> getAllUsers(){
+        List<UserEntity> userEntities = userRepository.findAll();
+        List<User> userList = new ArrayList<>();
+        userEntities.forEach(userEntity -> {
+            userList.add(User.fromEntity(userEntity));
+        });
+        return userList;
+    }
 
     @Transactional
-    public List<Movie> getUserMovies(int id) {
-       UserEntity userEntity = userRepository.getOne(id);
+    public void deleteUserFromId(int userId){
+        userRepository.deleteById(userId);
+    }
+
+    @Transactional
+    public List<Movie> getUserMovies(int userId) {
+       UserEntity userEntity = userRepository.getOne(userId);
        List<Movie> movieList = User.userMoviesListFromEntity(userEntity);
        return movieList;
     }

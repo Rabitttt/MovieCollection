@@ -32,10 +32,12 @@ public class MovieController {
     }
 
     @GetMapping("movie/details/{id}")
-    public String movieDetails(@PathVariable int id, Model movieDetails, Model model,Model castList){
+    public String movieDetails(@PathVariable int id, Model movieDetails, Model model,Model castList,Model ownerList,Model creator){
         Movie movie = movieService.getMovieById(id);
-        log.info("MovieController.movieDetails Movie Owners Kontrolu movie: {}",movie);
+        log.info("MovieController.movieDetails Movie movie: {}",movie);
         castList.addAttribute("castList",movieService.getMovieCastList(id));
+        ownerList.addAttribute("ownerList",movieService.getMovieOwners(id));
+        creator.addAttribute("creator",movie.getCreator());
 
         if(movie.getCreator().getUserName().equals(SessionManager.getPrincipal().getUsername())){
             movieDetails.addAttribute("movie",movie);
@@ -43,7 +45,6 @@ public class MovieController {
             return "edit-movie";
         }
         else {
-
             boolean isCollected = movieService.isMovieCollected(id);
             movieDetails.addAttribute("movie",movie);
             movieDetails.addAttribute("isCollected",isCollected);
