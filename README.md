@@ -1,5 +1,5 @@
 # MovieCollection
-Movie Collection to store your movies and show your movies to other people.
+Movie Collection helps you to collecting your movies and show them to other people.
 
 # Usage
 
