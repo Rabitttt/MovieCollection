@@ -3,7 +3,7 @@ Movie Collection helps you to collecting your movies and show them to other peop
 
 # Usage
 
-##### Before Start Make Sure **Git,Maven and Docker** Installed
+##### Please make sure you have these gadgets installed before using:
 * [Docker](https://docs.docker.com/engine/install/)
 * [Maven](https://maven.apache.org/index.html) 
 * [Git](https://git-scm.com/downloads)
@@ -56,10 +56,10 @@ mvn spring-boot:run
 After all these steps , you can start testing and developing this project.
 
 #### Note
-> This project dont have any default admin. To test admin role, you can basicly sign up with 'admin' username and you are going to be 
+> This project don't have any default admin. To test the admin role, you can sign up with 'admin' username and you are going to be admin.
 
 ### Contact
-If you have any confused about project , dont hesitate to ask me your question.
+If you have any confused about project , don't hesitate to ask me your question.
 <burakkaragol60@gmail.com> Here is my mail.
 
 ### Lisence
