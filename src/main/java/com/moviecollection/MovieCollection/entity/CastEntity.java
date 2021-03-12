@@ -1,8 +1,6 @@
 package com.moviecollection.MovieCollection.entity;
 
 import lombok.*;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
@@ -23,7 +21,7 @@ public class CastEntity {
     private String lastName;
 
 
-    //I dont control casts like user,I just need name of casts
+    //I don't control casts like user,I just need name of casts
     @ManyToOne
     @JoinColumn(name = "movie_id",referencedColumnName = "id")
     private MovieEntity movieEntity;

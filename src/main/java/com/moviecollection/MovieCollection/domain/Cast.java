@@ -17,14 +17,12 @@ public class Cast {
     private int castId;
     private String firstName;
     private String lastName;
-//    private Movie movie;
 
     public static Cast fromEntity(CastEntity castEntity){
         return Cast.builder()
                 .castId(castEntity.getId())
                 .firstName(castEntity.getFirstName())
                 .lastName(castEntity.getLastName())
-//                .movie(Movie.fromEntity(castEntity.getMovieEntity()))
                 .build();
     }
     public CastEntity toEntity (){

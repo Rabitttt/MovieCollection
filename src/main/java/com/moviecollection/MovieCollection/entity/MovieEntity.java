@@ -3,13 +3,8 @@ package com.moviecollection.MovieCollection.entity;
 import com.moviecollection.MovieCollection.enums.MovieCategories;
 import com.moviecollection.MovieCollection.enums.MovieLanguage;
 import lombok.*;
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-import org.joda.time.DateTime;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 

@@ -30,7 +30,7 @@ public class MovieService {
         UserEntity userEntity = userService.getUserFromPrincipal();
         movie.setCreator(User.fromEntity(userEntity));
         MovieEntity movieEntity = movie.toEntity();
-        addMovieToCollection(Movie.fromEntity(movieEntity)); //if i save on this function it will be twin data because i save in addMovieToCollection function
+        addMovieToCollection(Movie.fromEntity(movieEntity)); //if I save on this function it will be twin data because I save in addMovieToCollection function
         return Movie.fromEntity(movieEntity);
     }
     @Transactional

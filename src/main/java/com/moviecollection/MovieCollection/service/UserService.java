@@ -5,7 +5,6 @@ import com.moviecollection.MovieCollection.auth.SessionManager;
 import com.moviecollection.MovieCollection.auth.fakeAuthenticatedUsersDB;
 import com.moviecollection.MovieCollection.domain.Movie;
 import com.moviecollection.MovieCollection.domain.User;
-import com.moviecollection.MovieCollection.entity.MovieEntity;
 import com.moviecollection.MovieCollection.entity.UserEntity;
 import com.moviecollection.MovieCollection.repository.UserRepository;
 import com.moviecollection.MovieCollection.security.ApplicationUserRole;
@@ -19,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor //for dependency injection

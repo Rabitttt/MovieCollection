@@ -1,16 +1,10 @@
 package com.moviecollection.MovieCollection.domain;
 
-import com.moviecollection.MovieCollection.entity.CastEntity;
 import com.moviecollection.MovieCollection.entity.MovieEntity;
-import com.moviecollection.MovieCollection.entity.UserEntity;
 import com.moviecollection.MovieCollection.enums.MovieCategories;
 import com.moviecollection.MovieCollection.enums.MovieLanguage;
 import lombok.*;
-import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -64,14 +58,5 @@ public class Movie {
         });
         return userList;
     }
-//    public Timestamp convertDateToTimestamp(Date date){
-//        return new Timestamp(date.getTime());
-//    }
-    public DateTime stringToDateConverter(String strDate){
-        DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm:ss");
-        return DateTime.parse(strDate, formatter);
-    }
-    public String dateToString(DateTime date){
-        return date.toString();
-    }
+
 }

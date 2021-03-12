@@ -1,11 +1,8 @@
 package com.moviecollection.MovieCollection.controller;
 
-import com.moviecollection.MovieCollection.auth.SessionManager;
 import com.moviecollection.MovieCollection.domain.User;
-import com.moviecollection.MovieCollection.security.ApplicationUserRole;
 import com.moviecollection.MovieCollection.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

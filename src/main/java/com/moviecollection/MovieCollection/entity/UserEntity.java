@@ -3,8 +3,6 @@ package com.moviecollection.MovieCollection.entity;
 import com.moviecollection.MovieCollection.enums.Gender;
 import com.moviecollection.MovieCollection.security.ApplicationUserRole;
 import lombok.*;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.List;
