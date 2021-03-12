@@ -18,7 +18,7 @@ import java.util.*;
 
 
 @Service
-@RequiredArgsConstructor
+@RequiredArgsConstructor //for dependency injection
 public class MovieService {
     private final MovieRepository movieRepository;
     private final UserService userService;
@@ -99,7 +99,11 @@ public class MovieService {
         movieEntity.setCategory(movie.getCategory());
         movieEntity.setDescription(movie.getDescription());
         movieEntity.setLanguage(movie.getLanguage());
-        movieEntity.setReleaseDate(movie.getReleaseDate());
+        if(movie.getReleaseDate() != null)
+        {
+            movieEntity.setReleaseDate(movieEntity.getReleaseDate());
+        }
+
         movieEntity.setName(movie.getName());
         movieEntity = movieRepository.save(movieEntity);
         return Movie.fromEntity(movieEntity);
@@ -151,7 +155,7 @@ public class MovieService {
 
     @Transactional
     public List<Movie> findByCastName(String searchText){
-        List<CastEntity> matchedCastEntity = castRepository.findByFirstNameContainingIgnoreCase(searchText);
+        List<CastEntity> matchedCastEntity = castRepository.findByFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCase(searchText,searchText);
         List<Movie> movieList = new ArrayList<>();
         matchedCastEntity.forEach(movieEntity -> {
             matchedCastEntity.forEach(castEntity -> {
@@ -174,10 +178,10 @@ public class MovieService {
     public List<Movie> sortByDate(String type){
         List<MovieEntity> sortedMovieList;
         if(type.equals("newest")){
-            sortedMovieList = movieRepository.findAllByOrderByReleaseDateAsc();
+            sortedMovieList = movieRepository.findAllByOrderByReleaseDateDesc();
         }
         else {
-            sortedMovieList = movieRepository.findAllByOrderByReleaseDateDesc();
+            sortedMovieList = movieRepository.findAllByOrderByReleaseDateAsc();
         }
         List<Movie> movieList = new ArrayList<>();
         sortedMovieList.forEach(movieEntity -> {
@@ -186,4 +190,5 @@ public class MovieService {
         });
         return movieList;
     }
+
 }

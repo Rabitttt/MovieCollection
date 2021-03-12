@@ -16,7 +16,7 @@ import java.util.List;
 
 @Controller
 @AllArgsConstructor
-public class TemplateController {
+public class HomeController {
     private final UserService userService;
     private final MovieService movieService;
 

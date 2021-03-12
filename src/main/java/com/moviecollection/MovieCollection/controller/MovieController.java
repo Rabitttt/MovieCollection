@@ -7,7 +7,9 @@ import com.moviecollection.MovieCollection.enums.MovieCategories;
 import com.moviecollection.MovieCollection.service.MovieService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.dom4j.rule.Mode;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,10 +29,10 @@ public class MovieController {
     @PostMapping("user/movies/create")
     public String addNewMovie(@ModelAttribute(value = "movie") Movie movie) throws Exception {
         log.info("MovieController.addNewMovie movie: {}",movie);
+        System.out.println("Tarih: " +movie.getReleaseDate());
         movieService.createMovie(movie);
         return "redirect:/user/profile";
     }
-
     @GetMapping("movie/details/{id}")
     public String movieDetails(@PathVariable int id, Model movieDetails, Model model,Model castList,Model ownerList,Model creator){
         Movie movie = movieService.getMovieById(id);
@@ -109,16 +111,18 @@ public class MovieController {
         movieList.addAttribute("movieList", movieService.findByCategory(category));
         return "landing-page";
     }
-//    @GetMapping("/sort/by/movie/releaseDate")
-//    public String searchByMovieReleaseDate(Model movieList) {
-//        movieList.addAttribute("movieList", movieService.sortByDate("newest"));
-//        return "landing-page";
-//    }
+    @GetMapping("/sort/movie/by/releaseDate")
+    public String searchByMovieReleaseDate(@RequestParam("releaseDate") String sortType,Model movieList) {
+        movieList.addAttribute("movieList", movieService.sortByDate(sortType));
+        System.out.println("sortType :" + sortType);
+        return "landing-page";
+    }
 
     //time formatter
     @InitBinder
     public void initDateBinder(final WebDataBinder binder) {
-        binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("MM-dd-yyyy"), true));
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true));
     }
+
 
 }

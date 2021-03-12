@@ -17,3 +17,4 @@ public interface MovieRepository extends JpaRepository<MovieEntity,Integer> {
     List<MovieEntity> findAllByOrderByReleaseDateAsc();
     List<MovieEntity> findAllByOrderByReleaseDateDesc();
 }
+

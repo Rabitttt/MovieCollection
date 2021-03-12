@@ -28,12 +28,6 @@ public class UserController {
         userMovies.addAttribute("userMovies",movieList);
         model.addAttribute("user",user);
 
-//        ApplicationUserDetails applicationUserDetails = userService.getUserByAuthUsers();
-//        List<Movie> movieList = userService.getUserMovies(principal.getName());
-//
-//        userMovies.addAttribute("userMovies",movieList);
-//        model.addAttribute("user",applicationUserDetails);
-//
         return "user-profile";
     }
 

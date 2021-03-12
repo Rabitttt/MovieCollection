@@ -6,8 +6,10 @@ import lombok.*;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.joda.time.DateTime;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -26,7 +28,7 @@ public class MovieEntity {
     private String name;
     @Column(name = "description",length = 500)
     private String description;
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     @Column(name = "releasedate")
     private Date releaseDate;
     @Column(name = "category")
