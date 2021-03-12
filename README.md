@@ -37,7 +37,7 @@ sudo docker ps -a
 cd /MovieCollection/src/main/resources/
 `
 ```
-sudo docker exec -it [ POSTGRES_IMAGE_CONTAINER_ID ] psql -U postgres
+sudo docker exec -it [POSTGRES_IMAGE_CONTAINER_ID] psql -U postgres
 ```
 ```
 \c moviecollection
