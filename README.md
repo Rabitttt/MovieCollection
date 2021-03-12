@@ -62,7 +62,7 @@ After all these steps , you can start testing and developing this project.
 If you have any confused about project , don't hesitate to ask me your question.
 <burakkaragol60@gmail.com> Here is my mail.
 
-### Lisence
-This Project Have __GNU General Public License v3.0__  Which is Open Source Lisence. 
+### License
+This Project Have __GNU General Public License v3.0__  Which is Open Source License. 
 
 #### That's it! Happy Coding!
