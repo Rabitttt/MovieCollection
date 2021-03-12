@@ -42,6 +42,8 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/**", "src/main/resources/static/**").permitAll()
                 .antMatchers("/user/**").hasRole(ApplicationUserRole.USER.name())
+                .antMatchers("/movie/**").hasRole(ApplicationUserRole.USER.name())
+                .antMatchers("/admin/**").hasRole(ApplicationUserRole.ADMIN.name())
 //                .antMatchers("/**").hasAnyRole(ApplicationUserRole.ADMIN.name())
                 .anyRequest()
                 .authenticated()
@@ -80,5 +82,4 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
         provider.setUserDetailsService(applicationUserService);
         return provider;
     }
-
 }

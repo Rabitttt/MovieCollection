@@ -27,6 +27,7 @@ public class HomeController {
         movieList.addAttribute("movieList",allMovies);
         return "landing-page";
     }
+
     @GetMapping("/register")
     public String registerPage(Model model) {
         User user = new User();

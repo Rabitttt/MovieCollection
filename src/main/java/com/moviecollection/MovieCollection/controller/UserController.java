@@ -5,6 +5,9 @@ import com.moviecollection.MovieCollection.domain.Movie;
 import com.moviecollection.MovieCollection.domain.User;
 import com.moviecollection.MovieCollection.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.access.prepost.PreFilter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +20,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
+
 
     @GetMapping("/profile")
     public String getUserProfile(Model userMovies, Principal principal, Model model, @ModelAttribute(value = "movie") Movie movie)
@@ -36,20 +40,6 @@ public class UserController {
         userMovies.addAttribute("userMovies",userService.getUserMovies(userId));
         model.addAttribute("user",userService.getUserbyId(userId));
         return "user-details";
-    }
-
-    @GetMapping("/admin/panel")
-    public String getAdminPanel(Model admin,Model appUserList){
-        admin.addAttribute("admin",User.fromEntity(userService.getUserFromPrincipal()));
-        appUserList.addAttribute("appUserList",userService.getAllUsers());
-        return "admin-panel";
-    }
-
-    @PostMapping("/{id}/delete")
-    public String deleteUser(@PathVariable("id") int id)
-    {
-        userService.deleteUser(id);
-        return "redirect:/";
     }
 
 }

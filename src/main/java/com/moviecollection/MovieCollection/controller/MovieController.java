@@ -11,6 +11,7 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
@@ -33,6 +34,7 @@ public class MovieController {
         movieService.createMovie(movie);
         return "redirect:/user/profile";
     }
+
     @GetMapping("movie/details/{id}")
     public String movieDetails(@PathVariable int id, Model movieDetails, Model model,Model castList,Model ownerList,Model creator){
         Movie movie = movieService.getMovieById(id);
@@ -61,6 +63,7 @@ public class MovieController {
         movieService.addMovieToCollection(movie);
         return "redirect:/movie/details/" + id + "";
     }
+
     @PostMapping("/user/movies/edit")
     public String updateMovie(@ModelAttribute("movie")Movie editedMovie){
         log.info("MovieController.updateMovie movie: {}",editedMovie);
@@ -87,7 +90,6 @@ public class MovieController {
         movieService.deleteMovie(id);
         return "redirect:/user/profile";
     }
-
     @PostMapping("/user/movies/cast/{castId}/delete")
     public String deleteCast(@PathVariable int castId){
         int movieId = movieService.deleteCastFromMovie(castId);

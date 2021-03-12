@@ -63,9 +63,7 @@ public class UserService {
     @Transactional
     public void deleteUser(int userId){
         UserEntity userEntity = userRepository.findById(userId).orElseThrow();
-        for (MovieEntity movieEntity : userEntity.getOwnedMovies()) {
-            userEntity.getOwnedMovies().remove(movieEntity);
-        }
+        userEntity.getOwnedMovies().removeIf(movieEntity -> movieEntity.getCreator().getId() != userEntity.getId());
         userRepository.delete(userEntity);
     }
 
